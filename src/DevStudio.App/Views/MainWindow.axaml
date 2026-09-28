@@ -158,6 +158,11 @@
           <TreeView Grid.Row="1" ItemsSource="{Binding Explorer.RootNodes}"
                     SelectedItem="{Binding Explorer.SelectedNode}"
                     DoubleTapped="OnExplorerDoubleTapped">
+            <TreeView.Styles>
+              <Style Selector="TreeViewItem" x:DataType="vm:FileTreeNodeViewModel">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+              </Style>
+            </TreeView.Styles>
             <TreeView.ItemTemplate>
               <TreeDataTemplate x:DataType="vm:FileTreeNodeViewModel" ItemsSource="{Binding Children}">
                 <TextBlock Text="{Binding DisplayLabel}" ToolTip.Tip="{Binding Project.DetectionWarning}" />
@@ -185,8 +190,11 @@
             <TabControl.ItemTemplate>
               <DataTemplate x:DataType="vm:DocumentViewModel">
                 <StackPanel Orientation="Horizontal" Spacing="4">
-                  <TextBlock Text="{Binding DisplayName}" />
-                  <TextBlock Text="*" IsVisible="{Binding IsModified}" Foreground="OrangeRed" FontWeight="Bold" />
+                  <TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center" />
+                  <TextBlock Text="*" IsVisible="{Binding IsModified}" Foreground="OrangeRed" FontWeight="Bold" VerticalAlignment="Center" />
+                  <Button Content="x" Padding="4,0" Margin="4,0,0,0" VerticalAlignment="Center"
+                          Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).CloseDocumentCommand}"
+                          CommandParameter="{Binding}" />
                 </StackPanel>
               </DataTemplate>
             </TabControl.ItemTemplate>

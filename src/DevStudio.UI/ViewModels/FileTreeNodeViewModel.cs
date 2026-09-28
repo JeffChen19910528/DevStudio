@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using DevStudio.Core.Projects;
+using DevStudio.Core.Workspace;
 using DevStudio.UI.Services;
 
 namespace DevStudio.UI.ViewModels;
@@ -108,9 +109,21 @@ public partial class FileTreeNodeViewModel : ObservableObject
     {
         if (_workspaceAppService is null) return;
 
-        _childrenLoaded = true;
-        var nodes = await _workspaceAppService.GetChildrenAsync(FullPath).ConfigureAwait(true);
+        IReadOnlyList<FileSystemNode> nodes;
+        try
+        {
+            nodes = await _workspaceAppService.GetChildrenAsync(FullPath).ConfigureAwait(true);
+        }
+        catch (Exception)
+        {
+            // Leave _childrenLoaded false so collapsing and re-expanding retries the scan
+            // instead of leaving the "Loading..." placeholder stuck forever (SKILL.md §26).
+            Children.Clear();
+            Children.Add(CreatePlaceholder());
+            return;
+        }
 
+        _childrenLoaded = true;
         Children.Clear();
         foreach (var node in nodes)
         {
