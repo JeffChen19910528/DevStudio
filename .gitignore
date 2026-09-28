@@ -1,0 +1,35 @@
+## .NET build artifacts
+bin/
+obj/
+out/
+
+## Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+## Test results
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+
+## NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## DevStudio user/workspace state
+*.devstudio-state.json
+
+## Claude Code development artifacts (not part of the shipped project)
+SKILL.md
+CLAUDE.md
+docs/
+.claude_recovery/

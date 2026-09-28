@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Title" xml:space="preserve">
+    <value>DevStudio</value>
+  </data>
+  <data name="Menu.File" xml:space="preserve">
+    <value>_檔案</value>
+  </data>
+  <data name="Menu.File.NewFile" xml:space="preserve">
+    <value>_新增檔案</value>
+  </data>
+  <data name="Menu.File.OpenFile" xml:space="preserve">
+    <value>_開啟檔案...</value>
+  </data>
+  <data name="Menu.File.OpenFolder" xml:space="preserve">
+    <value>開啟_資料夾...</value>
+  </data>
+  <data name="Menu.File.RecentWorkspaces" xml:space="preserve">
+    <value>最近的_工作區</value>
+  </data>
+  <data name="Menu.File.RecentWorkspaces.None" xml:space="preserve">
+    <value>（無）</value>
+  </data>
+  <data name="Menu.File.RecentWorkspaces.MissingSuffix" xml:space="preserve">
+    <value>{0}（找不到）</value>
+  </data>
+  <data name="Menu.File.ReopenLastWorkspace" xml:space="preserve">
+    <value>啟動時重新開啟上次的工作區</value>
+  </data>
+  <data name="Menu.File.Save" xml:space="preserve">
+    <value>_儲存</value>
+  </data>
+  <data name="Menu.File.SaveAs" xml:space="preserve">
+    <value>另存為_...</value>
+  </data>
+  <data name="Menu.File.Close" xml:space="preserve">
+    <value>_關閉</value>
+  </data>
+  <data name="Menu.File.Exit" xml:space="preserve">
+    <value>結束(_X)</value>
+  </data>
+  <data name="Menu.Edit" xml:space="preserve">
+    <value>_編輯</value>
+  </data>
+  <data name="Menu.Edit.Undo" xml:space="preserve">
+    <value>_復原</value>
+  </data>
+  <data name="Menu.Edit.Redo" xml:space="preserve">
+    <value>_取消復原</value>
+  </data>
+  <data name="Menu.Edit.Cut" xml:space="preserve">
+    <value>剪下(_T)</value>
+  </data>
+  <data name="Menu.Edit.Copy" xml:space="preserve">
+    <value>_複製</value>
+  </data>
+  <data name="Menu.Edit.Paste" xml:space="preserve">
+    <value>_貼上</value>
+  </data>
+  <data name="Menu.Edit.Find" xml:space="preserve">
+    <value>_尋找</value>
+  </data>
+  <data name="Menu.Edit.Replace" xml:space="preserve">
+    <value>_取代</value>
+  </data>
+  <data name="Menu.Edit.GoToLine" xml:space="preserve">
+    <value>_跳至行...</value>
+  </data>
+  <data name="Menu.View" xml:space="preserve">
+    <value>_檢視</value>
+  </data>
+  <data name="Menu.View.Explorer" xml:space="preserve">
+    <value>檔案總管</value>
+  </data>
+  <data name="Menu.View.Problems" xml:space="preserve">
+    <value>問題</value>
+  </data>
+  <data name="Menu.View.Output" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="Menu.View.Terminal" xml:space="preserve">
+    <value>終端機</value>
+  </data>
+  <data name="Menu.View.Properties" xml:space="preserve">
+    <value>屬性</value>
+  </data>
+  <data name="Menu.View.ToggleTheme" xml:space="preserve">
+    <value>切換深色/淺色主題</value>
+  </data>
+  <data name="Menu.Project" xml:space="preserve">
+    <value>_專案</value>
+  </data>
+  <data name="Menu.Build" xml:space="preserve">
+    <value>_建置</value>
+  </data>
+  <data name="Menu.Build.Build" xml:space="preserve">
+    <value>_建置</value>
+  </data>
+  <data name="Menu.Build.Rebuild" xml:space="preserve">
+    <value>_重新建置</value>
+  </data>
+  <data name="Menu.Build.Clean" xml:space="preserve">
+    <value>_清除</value>
+  </data>
+  <data name="Menu.Build.Restore" xml:space="preserve">
+    <value>_還原套件</value>
+  </data>
+  <data name="Menu.Build.Cancel" xml:space="preserve">
+    <value>取消建置</value>
+  </data>
+  <data name="Menu.Run" xml:space="preserve">
+    <value>_執行</value>
+  </data>
+  <data name="Menu.Run.Run" xml:space="preserve">
+    <value>_執行</value>
+  </data>
+  <data name="Menu.Run.RunWithoutBuilding" xml:space="preserve">
+    <value>不建置直接_執行</value>
+  </data>
+  <data name="Menu.Run.Stop" xml:space="preserve">
+    <value>_停止</value>
+  </data>
+  <data name="Menu.Run.Restart" xml:space="preserve">
+    <value>重新啟動(_T)</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_偵錯</value>
+  </data>
+  <data name="Menu.Debug.Start" xml:space="preserve">
+    <value>_開始偵錯</value>
+  </data>
+  <data name="Menu.Debug.Continue" xml:space="preserve">
+    <value>_繼續</value>
+  </data>
+  <data name="Menu.Debug.Pause" xml:space="preserve">
+    <value>_暫停</value>
+  </data>
+  <data name="Menu.Debug.StepOver" xml:space="preserve">
+    <value>逐_行</value>
+  </data>
+  <data name="Menu.Debug.StepInto" xml:space="preserve">
+    <value>逐_過程</value>
+  </data>
+  <data name="Menu.Debug.StepOut" xml:space="preserve">
+    <value>跳出(_T)</value>
+  </data>
+  <data name="Menu.Debug.Stop" xml:space="preserve">
+    <value>_停止偵錯</value>
+  </data>
+  <data name="Menu.Debug.ToggleBreakpoint" xml:space="preserve">
+    <value>_切換指定行的中斷點...</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_語言服務</value>
+  </data>
+  <data name="Menu.Language.Completion" xml:space="preserve">
+    <value>觸發_自動完成</value>
+  </data>
+  <data name="Menu.Language.Hover" xml:space="preserve">
+    <value>顯示_滑鼠停留資訊</value>
+  </data>
+  <data name="Menu.Language.GoToDefinition" xml:space="preserve">
+    <value>移至_定義</value>
+  </data>
+  <data name="Menu.Language.Restart" xml:space="preserve">
+    <value>_重新啟動語言伺服器</value>
+  </data>
+  <data name="Menu.Test" xml:space="preserve">
+    <value>_測試</value>
+  </data>
+  <data name="Menu.Git" xml:space="preserve">
+    <value>_Git</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_工具</value>
+  </data>
+  <data name="Menu.Tools.RefreshToolchains" xml:space="preserve">
+    <value>重新整理工具鏈</value>
+  </data>
+  <data name="Menu.Tools.Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Menu.Extensions" xml:space="preserve">
+    <value>_擴充功能</value>
+  </data>
+  <data name="Menu.Extensions.Refresh" xml:space="preserve">
+    <value>重新整理擴充功能</value>
+  </data>
+  <data name="Toolbar.OpenFolder" xml:space="preserve">
+    <value>開啟資料夾</value>
+  </data>
+  <data name="Toolbar.Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Toolbar.Terminal" xml:space="preserve">
+    <value>終端機</value>
+  </data>
+  <data name="Toolbar.Build" xml:space="preserve">
+    <value>建置</value>
+  </data>
+  <data name="Toolbar.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Toolbar.Run" xml:space="preserve">
+    <value>執行</value>
+  </data>
+  <data name="Toolbar.Run.Tooltip" xml:space="preserve">
+    <value>先建置再執行選取的組態</value>
+  </data>
+  <data name="Toolbar.Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Toolbar.Restart" xml:space="preserve">
+    <value>重新啟動</value>
+  </data>
+  <data name="Toolbar.StartDebugging" xml:space="preserve">
+    <value>開始偵錯</value>
+  </data>
+  <data name="Toolbar.Continue" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="Toolbar.Pause" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="Toolbar.StepOver" xml:space="preserve">
+    <value>逐行</value>
+  </data>
+  <data name="Toolbar.StepInto" xml:space="preserve">
+    <value>逐過程</value>
+  </data>
+  <data name="Toolbar.StepOut" xml:space="preserve">
+    <value>跳出</value>
+  </data>
+  <data name="Toolbar.StopDebugging" xml:space="preserve">
+    <value>停止偵錯</value>
+  </data>
+  <data name="Toolbar.Completion" xml:space="preserve">
+    <value>自動完成</value>
+  </data>
+  <data name="Toolbar.Completion.Tooltip" xml:space="preserve">
+    <value>在插入點觸發自動完成</value>
+  </data>
+  <data name="Toolbar.Hover" xml:space="preserve">
+    <value>滑鼠停留資訊</value>
+  </data>
+  <data name="Toolbar.Hover.Tooltip" xml:space="preserve">
+    <value>顯示插入點符號的滑鼠停留資訊</value>
+  </data>
+  <data name="Toolbar.GoToDefinition" xml:space="preserve">
+    <value>移至定義</value>
+  </data>
+  <data name="Toolbar.RestartLsp" xml:space="preserve">
+    <value>重新啟動語言伺服器</value>
+  </data>
+  <data name="Toolbar.Test" xml:space="preserve">
+    <value>測試</value>
+  </data>
+  <data name="Toolbar.Test.Tooltip" xml:space="preserve">
+    <value>第 8 階段才會實作</value>
+  </data>
+  <data name="Explorer.Title" xml:space="preserve">
+    <value>檔案總管</value>
+  </data>
+  <data name="Editor.Find" xml:space="preserve">
+    <value>尋找：</value>
+  </data>
+  <data name="Editor.Replace" xml:space="preserve">
+    <value>取代：</value>
+  </data>
+  <data name="Editor.MatchCase" xml:space="preserve">
+    <value>區分大小寫</value>
+  </data>
+  <data name="Editor.FindNext" xml:space="preserve">
+    <value>找下一個</value>
+  </data>
+  <data name="Editor.ReplaceAll" xml:space="preserve">
+    <value>全部取代</value>
+  </data>
+  <data name="Editor.ExternalChange" xml:space="preserve">
+    <value>此檔案已在 DevStudio 之外被修改。</value>
+  </data>
+  <data name="Editor.Reload" xml:space="preserve">
+    <value>重新載入</value>
+  </data>
+  <data name="Properties.Title" xml:space="preserve">
+    <value>屬性</value>
+  </data>
+  <data name="Properties.NothingSelected" xml:space="preserve">
+    <value>（未選取任何項目）</value>
+  </data>
+  <data name="Properties.Type" xml:space="preserve">
+    <value>類型：</value>
+  </data>
+  <data name="Properties.RootPath" xml:space="preserve">
+    <value>根路徑：</value>
+  </data>
+  <data name="Properties.ProjectFile" xml:space="preserve">
+    <value>專案檔：</value>
+  </data>
+  <data name="Properties.Detection" xml:space="preserve">
+    <value>偵測狀態：</value>
+  </data>
+  <data name="Properties.Runnable" xml:space="preserve">
+    <value>可執行：</value>
+  </data>
+  <data name="Properties.Capabilities" xml:space="preserve">
+    <value>功能：</value>
+  </data>
+  <data name="Properties.SolutionType" xml:space="preserve">
+    <value>類型：方案</value>
+  </data>
+  <data name="Properties.SolutionFile" xml:space="preserve">
+    <value>方案檔：</value>
+  </data>
+  <data name="Properties.ReferencedProjects" xml:space="preserve">
+    <value>參考的專案：</value>
+  </data>
+  <data name="Problems.Title" xml:space="preserve">
+    <value>問題</value>
+  </data>
+  <data name="Problems.Summary" xml:space="preserve">
+    <value>{0} 個錯誤，{1} 個警告</value>
+  </data>
+  <data name="Problems.None" xml:space="preserve">
+    <value>未偵測到任何問題。</value>
+  </data>
+  <data name="Output.Title" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="Terminal.Title" xml:space="preserve">
+    <value>終端機</value>
+  </data>
+  <data name="Terminal.New" xml:space="preserve">
+    <value>新增終端機</value>
+  </data>
+  <data name="Terminal.Restart" xml:space="preserve">
+    <value>重新啟動</value>
+  </data>
+  <data name="Terminal.Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Terminal.InputPlaceholder" xml:space="preserve">
+    <value>輸入命令後按 Enter</value>
+  </data>
+  <data name="Toolchains.Title" xml:space="preserve">
+    <value>工具鏈</value>
+  </data>
+  <data name="Toolchains.Refresh" xml:space="preserve">
+    <value>重新整理工具鏈</value>
+  </data>
+  <data name="Toolchains.Refreshing" xml:space="preserve">
+    <value>重新整理中…</value>
+  </data>
+  <data name="Toolchains.LastRefreshed" xml:space="preserve">
+    <value>上次重新整理：{0:HH:mm:ss} UTC</value>
+  </data>
+  <data name="Toolchains.VisualStudio" xml:space="preserve">
+    <value>Visual Studio</value>
+  </data>
+  <data name="Toolchains.NoVisualStudio" xml:space="preserve">
+    <value>未偵測到 Visual Studio 安裝。</value>
+  </data>
+  <data name="Toolchains.Edition" xml:space="preserve">
+    <value>版本：</value>
+  </data>
+  <data name="Toolchains.Version" xml:space="preserve">
+    <value>  版本號：</value>
+  </data>
+  <data name="Toolchains.Installation" xml:space="preserve">
+    <value>安裝路徑：{0}</value>
+  </data>
+  <data name="Toolchains.MsBuild" xml:space="preserve">
+    <value>MSBuild：{0}</value>
+  </data>
+  <data name="Toolchains.Msvc" xml:space="preserve">
+    <value>MSVC：{0}</value>
+  </data>
+  <data name="CallStack.Title" xml:space="preserve">
+    <value>呼叫堆疊</value>
+  </data>
+  <data name="CallStack.State" xml:space="preserve">
+    <value>偵錯狀態：{0}</value>
+  </data>
+  <data name="Threads.Title" xml:space="preserve">
+    <value>執行緒</value>
+  </data>
+  <data name="Locals.Title" xml:space="preserve">
+    <value>本機變數</value>
+  </data>
+  <data name="Breakpoints.Title" xml:space="preserve">
+    <value>中斷點</value>
+  </data>
+  <data name="Completion.Title" xml:space="preserve">
+    <value>自動完成</value>
+  </data>
+  <data name="Hover.Title" xml:space="preserve">
+    <value>滑鼠停留資訊</value>
+  </data>
+  <data name="TestExplorer.Title" xml:space="preserve">
+    <value>測試</value>
+  </data>
+  <data name="TestExplorer.Refresh" xml:space="preserve">
+    <value>重新整理測試</value>
+  </data>
+  <data name="TestExplorer.RunAll" xml:space="preserve">
+    <value>全部執行</value>
+  </data>
+  <data name="TestExplorer.RunSelected" xml:space="preserve">
+    <value>執行選取的項目</value>
+  </data>
+  <data name="TestExplorer.Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="TestExplorer.RunState" xml:space="preserve">
+    <value>測試執行狀態：{0}</value>
+  </data>
+  <data name="SourceControl.Title" xml:space="preserve">
+    <value>原始碼控制</value>
+  </data>
+  <data name="SourceControl.Repository" xml:space="preserve">
+    <value>儲存庫：</value>
+  </data>
+  <data name="SourceControl.Refresh" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="SourceControl.Branch" xml:space="preserve">
+    <value>分支：{0}</value>
+  </data>
+  <data name="SourceControl.NoRepository" xml:space="preserve">
+    <value>在此工作區中未偵測到 Git 儲存庫。</value>
+  </data>
+  <data name="SourceControl.CommitMessagePlaceholder" xml:space="preserve">
+    <value>提交訊息</value>
+  </data>
+  <data name="SourceControl.Commit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="SourceControl.Changes" xml:space="preserve">
+    <value>變更</value>
+  </data>
+  <data name="SourceControl.StagedChanges" xml:space="preserve">
+    <value>已暫存的變更</value>
+  </data>
+  <data name="SourceControl.Unstage" xml:space="preserve">
+    <value>取消暫存</value>
+  </data>
+  <data name="SourceControl.UnstageAll" xml:space="preserve">
+    <value>全部取消暫存</value>
+  </data>
+  <data name="SourceControl.Stage" xml:space="preserve">
+    <value>暫存</value>
+  </data>
+  <data name="SourceControl.StageAll" xml:space="preserve">
+    <value>全部暫存</value>
+  </data>
+  <data name="SourceControl.Discard" xml:space="preserve">
+    <value>捨棄</value>
+  </data>
+  <data name="SourceControl.Branches" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="SourceControl.NewBranchPlaceholder" xml:space="preserve">
+    <value>新分支名稱</value>
+  </data>
+  <data name="SourceControl.CreateBranch" xml:space="preserve">
+    <value>建立分支</value>
+  </data>
+  <data name="SourceControl.Checkout" xml:space="preserve">
+    <value>切換分支</value>
+  </data>
+  <data name="SourceControl.Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="SourceControl.History" xml:space="preserve">
+    <value>歷史紀錄</value>
+  </data>
+  <data name="Extensions.Title" xml:space="preserve">
+    <value>擴充功能</value>
+  </data>
+  <data name="Extensions.Refresh" xml:space="preserve">
+    <value>重新整理擴充功能</value>
+  </data>
+  <data name="Extensions.Enable" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="Extensions.Disable" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="Extensions.ContributedCommands" xml:space="preserve">
+    <value>提供的命令</value>
+  </data>
+  <data name="Extensions.Invoke" xml:space="preserve">
+    <value>叫用</value>
+  </data>
+  <data name="StatusBar.Modified" xml:space="preserve">
+    <value>已修改</value>
+  </data>
+  <data name="StatusBar.Build" xml:space="preserve">
+    <value>建置：{0}</value>
+  </data>
+  <data name="StatusBar.Run" xml:space="preserve">
+    <value>執行：{0}</value>
+  </data>
+  <data name="StatusBar.CSharp" xml:space="preserve">
+    <value>C#：{0}</value>
+  </data>
+  <data name="StatusBar.Line" xml:space="preserve">
+    <value>第 {0} 行，第 {1} 欄</value>
+  </data>
+  <data name="Settings.Title" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Settings.General" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="Settings.RestartRequired" xml:space="preserve">
+    <value>部分使用者介面文字可能要重新啟動 DevStudio 後才會更新。</value>
+  </data>
+  <data name="Settings.Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Dialog.Ok" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="Dialog.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Dialog.Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Dialog.DontSave" xml:space="preserve">
+    <value>不要儲存</value>
+  </data>
+  <data name="Dialog.UnsavedChanges.Title" xml:space="preserve">
+    <value>未儲存的變更</value>
+  </data>
+  <data name="Dialog.GoToLine.Title" xml:space="preserve">
+    <value>跳至行</value>
+  </data>
+  <data name="Dialog.GoToLine.Message" xml:space="preserve">
+    <value>行號：</value>
+  </data>
+  <data name="Dialog.ToggleBreakpoint.Title" xml:space="preserve">
+    <value>切換中斷點</value>
+  </data>
+  <data name="Dialog.ToggleBreakpoint.Message" xml:space="preserve">
+    <value>行號（在目前文件中）：</value>
+  </data>
+  <data name="Dialog.UnsavedChanges.Message" xml:space="preserve">
+    <value>是否要儲存對 {0} 的變更？</value>
+  </data>
+  <data name="Dialog.WorkspaceNotFound.Title" xml:space="preserve">
+    <value>找不到工作區</value>
+  </data>
+  <data name="Dialog.WorkspaceNotFound.Message" xml:space="preserve">
+    <value>「{0}」已不存在。</value>
+  </data>
+  <data name="Dialog.NavigationUnavailable.Title" xml:space="preserve">
+    <value>無法瀏覽</value>
+  </data>
+  <data name="Dialog.NavigationUnavailable.NoLocation" xml:space="preserve">
+    <value>此診斷項目沒有相關聯的原始碼位置。</value>
+  </data>
+  <data name="Dialog.NavigationUnavailable.CannotNavigate" xml:space="preserve">
+    <value>無法瀏覽至診斷項目的位置。</value>
+  </data>
+  <data name="Dialog.NoDefinitionFound.Title" xml:space="preserve">
+    <value>找不到定義</value>
+  </data>
+  <data name="Dialog.NoDefinitionFound.Message" xml:space="preserve">
+    <value>語言伺服器未傳回此符號的定義。</value>
+  </data>
+  <data name="Dialog.UnableToOpenFile.Title" xml:space="preserve">
+    <value>無法開啟檔案</value>
+  </data>
+  <data name="Dialog.UnableToOpenFile.Message" xml:space="preserve">
+    <value>檔案：
+{0}
+
+原因：
+{1}</value>
+  </data>
+  <data name="Dialog.UnableToSaveFile.Title" xml:space="preserve">
+    <value>無法儲存檔案</value>
+  </data>
+  <data name="Dialog.UnableToSaveFile.Message" xml:space="preserve">
+    <value>檔案：
+{0}
+
+原因：
+{1}</value>
+  </data>
+  <data name="Dialog.CannotBuild.Title" xml:space="preserve">
+    <value>無法建置</value>
+  </data>
+  <data name="Dialog.CannotBuild.NoTarget" xml:space="preserve">
+    <value>未選取可建置的專案或方案。</value>
+  </data>
+  <data name="Dialog.BuildNotSupported.Title" xml:space="preserve">
+    <value>不支援建置</value>
+  </data>
+  <data name="Dialog.BuildNotSupported.Message" xml:space="preserve">
+    <value>{0} 專案的建置支援將於未來階段推出。</value>
+  </data>
+  <data name="Dialog.BuildAlreadyRunning.Title" xml:space="preserve">
+    <value>建置已在執行中</value>
+  </data>
+  <data name="Dialog.CannotRun.Title" xml:space="preserve">
+    <value>無法執行</value>
+  </data>
+  <data name="Dialog.CannotRun.Message" xml:space="preserve">
+    <value>未選取可執行的專案。專案必須將 OutputType 設為 Exe/WinExe（或使用 ASP.NET Core Web SDK）才能執行。</value>
+  </data>
+  <data name="Dialog.RunNotSupported.Title" xml:space="preserve">
+    <value>不支援執行</value>
+  </data>
+  <data name="Dialog.RunNotSupported.Message" xml:space="preserve">
+    <value>{0} 專案的執行支援將於未來階段推出。</value>
+  </data>
+  <data name="Dialog.ApplicationAlreadyRunning.Title" xml:space="preserve">
+    <value>應用程式已在執行中</value>
+  </data>
+  <data name="Dialog.CannotDebug.Title" xml:space="preserve">
+    <value>無法偵錯</value>
+  </data>
+  <data name="Dialog.CannotDebug.Message" xml:space="preserve">
+    <value>未選取可偵錯的專案。專案必須將 OutputType 設為 Exe/WinExe（或使用 ASP.NET Core Web SDK）才能偵錯。</value>
+  </data>
+  <data name="Dialog.DebugNotSupported.Title" xml:space="preserve">
+    <value>不支援偵錯</value>
+  </data>
+  <data name="Dialog.DebugNotSupported.Message" xml:space="preserve">
+    <value>{0} 專案的偵錯支援將於未來階段推出。</value>
+  </data>
+  <data name="Dialog.DebugSessionAlreadyActive.Title" xml:space="preserve">
+    <value>偵錯工作階段已在進行中</value>
+  </data>
+  <data name="Dialog.NoTestProjectFound.Title" xml:space="preserve">
+    <value>找不到測試專案</value>
+  </data>
+  <data name="Dialog.NoTestProjectFound.MessageDetailed" xml:space="preserve">
+    <value>此工作區中沒有專案被偵測為真正的 .NET 測試專案（找不到 Microsoft.NET.Test.Sdk/xUnit/NUnit/MSTest 參考）。</value>
+  </data>
+  <data name="Dialog.NoTestProjectFound.Message" xml:space="preserve">
+    <value>此工作區中沒有專案被偵測為真正的 .NET 測試專案。</value>
+  </data>
+  <data name="Dialog.TestDiscoveryNotSupported.Title" xml:space="preserve">
+    <value>不支援測試探索</value>
+  </data>
+  <data name="Dialog.TestDiscoveryNotSupported.Message" xml:space="preserve">
+    <value>{0} 專案的測試支援將於未來階段推出。</value>
+  </data>
+  <data name="Dialog.TestDiscoveryAlreadyActive.Title" xml:space="preserve">
+    <value>測試探索已在進行中</value>
+  </data>
+  <data name="Dialog.TestExecutionNotSupported.Title" xml:space="preserve">
+    <value>不支援測試執行</value>
+  </data>
+  <data name="Dialog.TestExecutionNotSupported.Message" xml:space="preserve">
+    <value>{0} 專案的測試支援將於未來階段推出。</value>
+  </data>
+  <data name="Dialog.TestRunAlreadyActive.Title" xml:space="preserve">
+    <value>測試執行已在進行中</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Title" xml:space="preserve">
+    <value>工作區未受信任</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Build" xml:space="preserve">
+    <value>建置「{0}」將會執行此專案自身的建置命令（dotnet {1}）。是否信任此工作區並繼續？</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Run" xml:space="preserve">
+    <value>執行「{0}」將會執行此專案的應用程式程式碼。是否信任此工作區並繼續？</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Debug" xml:space="preserve">
+    <value>偵錯「{0}」將會執行此專案的應用程式與偵錯工具程式碼。是否信任此工作區並繼續？</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.LanguageServer" xml:space="preserve">
+    <value>啟動 C# 語言伺服器將會分析此工作區的專案檔（包括透過 MSBuild 評估這些檔案）。是否信任此工作區並繼續？</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.TestOrGit" xml:space="preserve">
+    <value>{0}將會執行此專案自身的建置/測試基礎架構。是否信任此工作區並繼續？</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.GitHooks" xml:space="preserve">
+    <value>{0}可能會執行此儲存庫自身的 Git 掛鉤 (hook)。是否信任此工作區並繼續？</value>
+  </data>
+  <data name="Trust.Action.DiscoveringTests" xml:space="preserve">
+    <value>探索測試</value>
+  </data>
+  <data name="Trust.Action.RunningTests" xml:space="preserve">
+    <value>執行測試</value>
+  </data>
+  <data name="Trust.Action.StagingFile" xml:space="preserve">
+    <value>暫存檔案</value>
+  </data>
+  <data name="Trust.Action.StagingAllChanges" xml:space="preserve">
+    <value>暫存所有變更</value>
+  </data>
+  <data name="Trust.Action.UnstagingFile" xml:space="preserve">
+    <value>取消暫存檔案</value>
+  </data>
+  <data name="Trust.Action.UnstagingAllChanges" xml:space="preserve">
+    <value>取消暫存所有變更</value>
+  </data>
+  <data name="Trust.Action.DiscardingChanges" xml:space="preserve">
+    <value>捨棄變更</value>
+  </data>
+  <data name="Trust.Action.Committing" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Trust.Action.CreatingBranch" xml:space="preserve">
+    <value>建立分支</value>
+  </data>
+  <data name="Trust.Action.CheckingOutBranch" xml:space="preserve">
+    <value>切換分支</value>
+  </data>
+  <data name="Trust.Action.DeletingBranch" xml:space="preserve">
+    <value>刪除分支</value>
+  </data>
+  <data name="Dialog.NothingToCommit.Title" xml:space="preserve">
+    <value>沒有可提交的項目</value>
+  </data>
+  <data name="Dialog.NothingToCommit.Message" xml:space="preserve">
+    <value>請先暫存至少一項變更才能提交。</value>
+  </data>
+  <data name="Dialog.CommitMessageRequired.Title" xml:space="preserve">
+    <value>需要提交訊息</value>
+  </data>
+  <data name="Dialog.CommitMessageRequired.Message" xml:space="preserve">
+    <value>請先輸入提交訊息才能提交。</value>
+  </data>
+  <data name="Dialog.CheckoutBlocked.Title" xml:space="preserve">
+    <value>無法切換分支</value>
+  </data>
+  <data name="Dialog.CheckoutBlocked.Fallback" xml:space="preserve">
+    <value>Git 拒絕了此次分支切換。</value>
+  </data>
+  <data name="Dialog.CannotDeleteBranch.Title" xml:space="preserve">
+    <value>無法刪除分支</value>
+  </data>
+  <data name="Dialog.CannotDeleteBranch.CurrentBranch" xml:space="preserve">
+    <value>無法刪除目前的分支。</value>
+  </data>
+  <data name="Dialog.DeleteBranchBlocked.Title" xml:space="preserve">
+    <value>無法刪除分支</value>
+  </data>
+  <data name="Dialog.DeleteBranchBlocked.Fallback" xml:space="preserve">
+    <value>Git 拒絕刪除此分支。</value>
+  </data>
+  <data name="Dialog.GitOperationAlreadyRunning.Title" xml:space="preserve">
+    <value>Git 操作已在進行中</value>
+  </data>
+  <data name="Dialog.DiscardChanges.Title" xml:space="preserve">
+    <value>捨棄變更</value>
+  </data>
+  <data name="Dialog.DiscardChanges.Message" xml:space="preserve">
+    <value>這將永久捨棄「{0}」中真實、尚未提交的工作目錄變更。此操作無法復原。是否繼續？</value>
+  </data>
+  <data name="Dialog.DeleteBranch.Title" xml:space="preserve">
+    <value>刪除分支</value>
+  </data>
+  <data name="Dialog.DeleteBranch.Message" xml:space="preserve">
+    <value>是否刪除分支「{0}」？若此分支包含尚未合併的提交，Git 將會拒絕刪除。</value>
+  </data>
+  <data name="Dialog.PickFolder.Title" xml:space="preserve">
+    <value>開啟資料夾</value>
+  </data>
+  <data name="Dialog.PickFileToOpen.Title" xml:space="preserve">
+    <value>開啟檔案</value>
+  </data>
+  <data name="Dialog.PickFileToSaveAs.Title" xml:space="preserve">
+    <value>另存新檔</value>
+  </data>
+</root>

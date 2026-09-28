@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DevStudio.App/DevStudio.App.csproj" />
+    <Project Path="src/DevStudio.Core/DevStudio.Core.csproj" />
+    <Project Path="src/DevStudio.Infrastructure/DevStudio.Infrastructure.csproj" />
+    <Project Path="src/DevStudio.UI/DevStudio.UI.csproj" />
+  </Folder>
+  <Folder Name="/extensions/">
+    <Project Path="extensions/DevStudio.SampleExtension/DevStudio.SampleExtension.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DevStudio.Core.Tests/DevStudio.Core.Tests.csproj" />
+    <Project Path="tests/DevStudio.Infrastructure.Tests/DevStudio.Infrastructure.Tests.csproj" />
+    <Project Path="tests/DevStudio.UI.Tests/DevStudio.UI.Tests.csproj" />
+  </Folder>
+</Solution>

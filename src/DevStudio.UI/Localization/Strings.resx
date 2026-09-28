@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Title" xml:space="preserve">
+    <value>DevStudio</value>
+  </data>
+  <data name="Menu.File" xml:space="preserve">
+    <value>_File</value>
+  </data>
+  <data name="Menu.File.NewFile" xml:space="preserve">
+    <value>_New File</value>
+  </data>
+  <data name="Menu.File.OpenFile" xml:space="preserve">
+    <value>_Open File...</value>
+  </data>
+  <data name="Menu.File.OpenFolder" xml:space="preserve">
+    <value>Open _Folder...</value>
+  </data>
+  <data name="Menu.File.RecentWorkspaces" xml:space="preserve">
+    <value>Recent _Workspaces</value>
+  </data>
+  <data name="Menu.File.RecentWorkspaces.None" xml:space="preserve">
+    <value>(none)</value>
+  </data>
+  <data name="Menu.File.RecentWorkspaces.MissingSuffix" xml:space="preserve">
+    <value>{0} (missing)</value>
+  </data>
+  <data name="Menu.File.ReopenLastWorkspace" xml:space="preserve">
+    <value>Reopen Last Workspace on Startup</value>
+  </data>
+  <data name="Menu.File.Save" xml:space="preserve">
+    <value>_Save</value>
+  </data>
+  <data name="Menu.File.SaveAs" xml:space="preserve">
+    <value>Save _As...</value>
+  </data>
+  <data name="Menu.File.Close" xml:space="preserve">
+    <value>_Close</value>
+  </data>
+  <data name="Menu.File.Exit" xml:space="preserve">
+    <value>E_xit</value>
+  </data>
+  <data name="Menu.Edit" xml:space="preserve">
+    <value>_Edit</value>
+  </data>
+  <data name="Menu.Edit.Undo" xml:space="preserve">
+    <value>_Undo</value>
+  </data>
+  <data name="Menu.Edit.Redo" xml:space="preserve">
+    <value>_Redo</value>
+  </data>
+  <data name="Menu.Edit.Cut" xml:space="preserve">
+    <value>Cu_t</value>
+  </data>
+  <data name="Menu.Edit.Copy" xml:space="preserve">
+    <value>_Copy</value>
+  </data>
+  <data name="Menu.Edit.Paste" xml:space="preserve">
+    <value>_Paste</value>
+  </data>
+  <data name="Menu.Edit.Find" xml:space="preserve">
+    <value>_Find</value>
+  </data>
+  <data name="Menu.Edit.Replace" xml:space="preserve">
+    <value>_Replace</value>
+  </data>
+  <data name="Menu.Edit.GoToLine" xml:space="preserve">
+    <value>_Go To Line...</value>
+  </data>
+  <data name="Menu.View" xml:space="preserve">
+    <value>_View</value>
+  </data>
+  <data name="Menu.View.Explorer" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="Menu.View.Problems" xml:space="preserve">
+    <value>Problems</value>
+  </data>
+  <data name="Menu.View.Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Menu.View.Terminal" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
+  <data name="Menu.View.Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Menu.View.ToggleTheme" xml:space="preserve">
+    <value>Toggle Dark/Light Theme</value>
+  </data>
+  <data name="Menu.Project" xml:space="preserve">
+    <value>_Project</value>
+  </data>
+  <data name="Menu.Build" xml:space="preserve">
+    <value>_Build</value>
+  </data>
+  <data name="Menu.Build.Build" xml:space="preserve">
+    <value>_Build</value>
+  </data>
+  <data name="Menu.Build.Rebuild" xml:space="preserve">
+    <value>_Rebuild</value>
+  </data>
+  <data name="Menu.Build.Clean" xml:space="preserve">
+    <value>_Clean</value>
+  </data>
+  <data name="Menu.Build.Restore" xml:space="preserve">
+    <value>_Restore</value>
+  </data>
+  <data name="Menu.Build.Cancel" xml:space="preserve">
+    <value>Cancel Build</value>
+  </data>
+  <data name="Menu.Run" xml:space="preserve">
+    <value>_Run</value>
+  </data>
+  <data name="Menu.Run.Run" xml:space="preserve">
+    <value>_Run</value>
+  </data>
+  <data name="Menu.Run.RunWithoutBuilding" xml:space="preserve">
+    <value>Run _Without Building</value>
+  </data>
+  <data name="Menu.Run.Stop" xml:space="preserve">
+    <value>_Stop</value>
+  </data>
+  <data name="Menu.Run.Restart" xml:space="preserve">
+    <value>Res_tart</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Debug</value>
+  </data>
+  <data name="Menu.Debug.Start" xml:space="preserve">
+    <value>_Start Debugging</value>
+  </data>
+  <data name="Menu.Debug.Continue" xml:space="preserve">
+    <value>_Continue</value>
+  </data>
+  <data name="Menu.Debug.Pause" xml:space="preserve">
+    <value>_Pause</value>
+  </data>
+  <data name="Menu.Debug.StepOver" xml:space="preserve">
+    <value>Step _Over</value>
+  </data>
+  <data name="Menu.Debug.StepInto" xml:space="preserve">
+    <value>Step _Into</value>
+  </data>
+  <data name="Menu.Debug.StepOut" xml:space="preserve">
+    <value>Step Ou_t</value>
+  </data>
+  <data name="Menu.Debug.Stop" xml:space="preserve">
+    <value>_Stop Debugging</value>
+  </data>
+  <data name="Menu.Debug.ToggleBreakpoint" xml:space="preserve">
+    <value>_Toggle Breakpoint at Line...</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Language</value>
+  </data>
+  <data name="Menu.Language.Completion" xml:space="preserve">
+    <value>Trigger _Completion</value>
+  </data>
+  <data name="Menu.Language.Hover" xml:space="preserve">
+    <value>Show _Hover</value>
+  </data>
+  <data name="Menu.Language.GoToDefinition" xml:space="preserve">
+    <value>Go To _Definition</value>
+  </data>
+  <data name="Menu.Language.Restart" xml:space="preserve">
+    <value>_Restart Language Server</value>
+  </data>
+  <data name="Menu.Test" xml:space="preserve">
+    <value>_Test</value>
+  </data>
+  <data name="Menu.Git" xml:space="preserve">
+    <value>_Git</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_Tools</value>
+  </data>
+  <data name="Menu.Tools.RefreshToolchains" xml:space="preserve">
+    <value>Refresh Toolchains</value>
+  </data>
+  <data name="Menu.Tools.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Menu.Extensions" xml:space="preserve">
+    <value>_Extensions</value>
+  </data>
+  <data name="Menu.Extensions.Refresh" xml:space="preserve">
+    <value>Refresh Extensions</value>
+  </data>
+  <data name="Toolbar.OpenFolder" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="Toolbar.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Toolbar.Terminal" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
+  <data name="Toolbar.Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="Toolbar.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Toolbar.Run" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="Toolbar.Run.Tooltip" xml:space="preserve">
+    <value>Build then run the selected configuration</value>
+  </data>
+  <data name="Toolbar.Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Toolbar.Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="Toolbar.StartDebugging" xml:space="preserve">
+    <value>Start Debugging</value>
+  </data>
+  <data name="Toolbar.Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Toolbar.Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Toolbar.StepOver" xml:space="preserve">
+    <value>Step Over</value>
+  </data>
+  <data name="Toolbar.StepInto" xml:space="preserve">
+    <value>Step Into</value>
+  </data>
+  <data name="Toolbar.StepOut" xml:space="preserve">
+    <value>Step Out</value>
+  </data>
+  <data name="Toolbar.StopDebugging" xml:space="preserve">
+    <value>Stop Debugging</value>
+  </data>
+  <data name="Toolbar.Completion" xml:space="preserve">
+    <value>Completion</value>
+  </data>
+  <data name="Toolbar.Completion.Tooltip" xml:space="preserve">
+    <value>Trigger completion at the caret</value>
+  </data>
+  <data name="Toolbar.Hover" xml:space="preserve">
+    <value>Hover</value>
+  </data>
+  <data name="Toolbar.Hover.Tooltip" xml:space="preserve">
+    <value>Show hover info for the symbol at the caret</value>
+  </data>
+  <data name="Toolbar.GoToDefinition" xml:space="preserve">
+    <value>Go To Definition</value>
+  </data>
+  <data name="Toolbar.RestartLsp" xml:space="preserve">
+    <value>Restart LSP</value>
+  </data>
+  <data name="Toolbar.Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="Toolbar.Test.Tooltip" xml:space="preserve">
+    <value>Not implemented until Phase 8</value>
+  </data>
+  <data name="Explorer.Title" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="Editor.Find" xml:space="preserve">
+    <value>Find:</value>
+  </data>
+  <data name="Editor.Replace" xml:space="preserve">
+    <value>Replace:</value>
+  </data>
+  <data name="Editor.MatchCase" xml:space="preserve">
+    <value>Match case</value>
+  </data>
+  <data name="Editor.FindNext" xml:space="preserve">
+    <value>Find Next</value>
+  </data>
+  <data name="Editor.ReplaceAll" xml:space="preserve">
+    <value>Replace All</value>
+  </data>
+  <data name="Editor.ExternalChange" xml:space="preserve">
+    <value>This file was modified outside DevStudio.</value>
+  </data>
+  <data name="Editor.Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="Properties.Title" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Properties.NothingSelected" xml:space="preserve">
+    <value>(nothing selected)</value>
+  </data>
+  <data name="Properties.Type" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="Properties.RootPath" xml:space="preserve">
+    <value>Root Path:</value>
+  </data>
+  <data name="Properties.ProjectFile" xml:space="preserve">
+    <value>Project File:</value>
+  </data>
+  <data name="Properties.Detection" xml:space="preserve">
+    <value>Detection:</value>
+  </data>
+  <data name="Properties.Runnable" xml:space="preserve">
+    <value>Runnable:</value>
+  </data>
+  <data name="Properties.Capabilities" xml:space="preserve">
+    <value>Capabilities:</value>
+  </data>
+  <data name="Properties.SolutionType" xml:space="preserve">
+    <value>Type: Solution</value>
+  </data>
+  <data name="Properties.SolutionFile" xml:space="preserve">
+    <value>Solution File:</value>
+  </data>
+  <data name="Properties.ReferencedProjects" xml:space="preserve">
+    <value>Referenced Projects:</value>
+  </data>
+  <data name="Problems.Title" xml:space="preserve">
+    <value>Problems</value>
+  </data>
+  <data name="Problems.Summary" xml:space="preserve">
+    <value>{0} error(s), {1} warning(s)</value>
+  </data>
+  <data name="Problems.None" xml:space="preserve">
+    <value>No problems detected.</value>
+  </data>
+  <data name="Output.Title" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Terminal.Title" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
+  <data name="Terminal.New" xml:space="preserve">
+    <value>New Terminal</value>
+  </data>
+  <data name="Terminal.Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="Terminal.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Terminal.InputPlaceholder" xml:space="preserve">
+    <value>Type a command and press Enter</value>
+  </data>
+  <data name="Toolchains.Title" xml:space="preserve">
+    <value>Toolchains</value>
+  </data>
+  <data name="Toolchains.Refresh" xml:space="preserve">
+    <value>Refresh Toolchains</value>
+  </data>
+  <data name="Toolchains.Refreshing" xml:space="preserve">
+    <value>Refreshing…</value>
+  </data>
+  <data name="Toolchains.LastRefreshed" xml:space="preserve">
+    <value>Last refreshed: {0:HH:mm:ss} UTC</value>
+  </data>
+  <data name="Toolchains.VisualStudio" xml:space="preserve">
+    <value>Visual Studio</value>
+  </data>
+  <data name="Toolchains.NoVisualStudio" xml:space="preserve">
+    <value>No Visual Studio installation detected.</value>
+  </data>
+  <data name="Toolchains.Edition" xml:space="preserve">
+    <value>Edition: </value>
+  </data>
+  <data name="Toolchains.Version" xml:space="preserve">
+    <value>  Version: </value>
+  </data>
+  <data name="Toolchains.Installation" xml:space="preserve">
+    <value>Installation: {0}</value>
+  </data>
+  <data name="Toolchains.MsBuild" xml:space="preserve">
+    <value>MSBuild: {0}</value>
+  </data>
+  <data name="Toolchains.Msvc" xml:space="preserve">
+    <value>MSVC: {0}</value>
+  </data>
+  <data name="CallStack.Title" xml:space="preserve">
+    <value>Call Stack</value>
+  </data>
+  <data name="CallStack.State" xml:space="preserve">
+    <value>Debug state: {0}</value>
+  </data>
+  <data name="Threads.Title" xml:space="preserve">
+    <value>Threads</value>
+  </data>
+  <data name="Locals.Title" xml:space="preserve">
+    <value>Locals</value>
+  </data>
+  <data name="Breakpoints.Title" xml:space="preserve">
+    <value>Breakpoints</value>
+  </data>
+  <data name="Completion.Title" xml:space="preserve">
+    <value>Completion</value>
+  </data>
+  <data name="Hover.Title" xml:space="preserve">
+    <value>Hover</value>
+  </data>
+  <data name="TestExplorer.Title" xml:space="preserve">
+    <value>Tests</value>
+  </data>
+  <data name="TestExplorer.Refresh" xml:space="preserve">
+    <value>Refresh Tests</value>
+  </data>
+  <data name="TestExplorer.RunAll" xml:space="preserve">
+    <value>Run All</value>
+  </data>
+  <data name="TestExplorer.RunSelected" xml:space="preserve">
+    <value>Run Selected</value>
+  </data>
+  <data name="TestExplorer.Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="TestExplorer.RunState" xml:space="preserve">
+    <value>Test run state: {0}</value>
+  </data>
+  <data name="SourceControl.Title" xml:space="preserve">
+    <value>Source Control</value>
+  </data>
+  <data name="SourceControl.Repository" xml:space="preserve">
+    <value>Repository:</value>
+  </data>
+  <data name="SourceControl.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="SourceControl.Branch" xml:space="preserve">
+    <value>Branch: {0}</value>
+  </data>
+  <data name="SourceControl.NoRepository" xml:space="preserve">
+    <value>No Git repository detected in this workspace.</value>
+  </data>
+  <data name="SourceControl.CommitMessagePlaceholder" xml:space="preserve">
+    <value>Commit message</value>
+  </data>
+  <data name="SourceControl.Commit" xml:space="preserve">
+    <value>Commit</value>
+  </data>
+  <data name="SourceControl.Changes" xml:space="preserve">
+    <value>Changes</value>
+  </data>
+  <data name="SourceControl.StagedChanges" xml:space="preserve">
+    <value>Staged Changes</value>
+  </data>
+  <data name="SourceControl.Unstage" xml:space="preserve">
+    <value>Unstage</value>
+  </data>
+  <data name="SourceControl.UnstageAll" xml:space="preserve">
+    <value>Unstage All</value>
+  </data>
+  <data name="SourceControl.Stage" xml:space="preserve">
+    <value>Stage</value>
+  </data>
+  <data name="SourceControl.StageAll" xml:space="preserve">
+    <value>Stage All</value>
+  </data>
+  <data name="SourceControl.Discard" xml:space="preserve">
+    <value>Discard</value>
+  </data>
+  <data name="SourceControl.Branches" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="SourceControl.NewBranchPlaceholder" xml:space="preserve">
+    <value>New branch name</value>
+  </data>
+  <data name="SourceControl.CreateBranch" xml:space="preserve">
+    <value>Create Branch</value>
+  </data>
+  <data name="SourceControl.Checkout" xml:space="preserve">
+    <value>Checkout</value>
+  </data>
+  <data name="SourceControl.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="SourceControl.History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Extensions.Title" xml:space="preserve">
+    <value>Extensions</value>
+  </data>
+  <data name="Extensions.Refresh" xml:space="preserve">
+    <value>Refresh Extensions</value>
+  </data>
+  <data name="Extensions.Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Extensions.Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Extensions.ContributedCommands" xml:space="preserve">
+    <value>Contributed Commands</value>
+  </data>
+  <data name="Extensions.Invoke" xml:space="preserve">
+    <value>Invoke</value>
+  </data>
+  <data name="StatusBar.Modified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="StatusBar.Build" xml:space="preserve">
+    <value>Build: {0}</value>
+  </data>
+  <data name="StatusBar.Run" xml:space="preserve">
+    <value>Run: {0}</value>
+  </data>
+  <data name="StatusBar.CSharp" xml:space="preserve">
+    <value>C#: {0}</value>
+  </data>
+  <data name="StatusBar.Line" xml:space="preserve">
+    <value>Ln {0}, Col {1}</value>
+  </data>
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings.General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings.RestartRequired" xml:space="preserve">
+    <value>Some UI text may not update until DevStudio is restarted.</value>
+  </data>
+  <data name="Settings.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Dialog.Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Dialog.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Dialog.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Dialog.DontSave" xml:space="preserve">
+    <value>Don't Save</value>
+  </data>
+  <data name="Dialog.UnsavedChanges.Title" xml:space="preserve">
+    <value>Unsaved Changes</value>
+  </data>
+  <data name="Dialog.GoToLine.Title" xml:space="preserve">
+    <value>Go To Line</value>
+  </data>
+  <data name="Dialog.GoToLine.Message" xml:space="preserve">
+    <value>Line number:</value>
+  </data>
+  <data name="Dialog.ToggleBreakpoint.Title" xml:space="preserve">
+    <value>Toggle Breakpoint</value>
+  </data>
+  <data name="Dialog.ToggleBreakpoint.Message" xml:space="preserve">
+    <value>Line number (in the active document):</value>
+  </data>
+  <data name="Dialog.UnsavedChanges.Message" xml:space="preserve">
+    <value>Save changes to {0}?</value>
+  </data>
+  <data name="Dialog.WorkspaceNotFound.Title" xml:space="preserve">
+    <value>Workspace Not Found</value>
+  </data>
+  <data name="Dialog.WorkspaceNotFound.Message" xml:space="preserve">
+    <value>'{0}' no longer exists.</value>
+  </data>
+  <data name="Dialog.NavigationUnavailable.Title" xml:space="preserve">
+    <value>Navigation Unavailable</value>
+  </data>
+  <data name="Dialog.NavigationUnavailable.NoLocation" xml:space="preserve">
+    <value>This diagnostic has no associated source location.</value>
+  </data>
+  <data name="Dialog.NavigationUnavailable.CannotNavigate" xml:space="preserve">
+    <value>Unable to navigate to diagnostic location.</value>
+  </data>
+  <data name="Dialog.NoDefinitionFound.Title" xml:space="preserve">
+    <value>No Definition Found</value>
+  </data>
+  <data name="Dialog.NoDefinitionFound.Message" xml:space="preserve">
+    <value>The language server did not return a definition for this symbol.</value>
+  </data>
+  <data name="Dialog.UnableToOpenFile.Title" xml:space="preserve">
+    <value>Unable to open file</value>
+  </data>
+  <data name="Dialog.UnableToOpenFile.Message" xml:space="preserve">
+    <value>File:
+{0}
+
+Reason:
+{1}</value>
+  </data>
+  <data name="Dialog.UnableToSaveFile.Title" xml:space="preserve">
+    <value>Unable to save file</value>
+  </data>
+  <data name="Dialog.UnableToSaveFile.Message" xml:space="preserve">
+    <value>File:
+{0}
+
+Reason:
+{1}</value>
+  </data>
+  <data name="Dialog.CannotBuild.Title" xml:space="preserve">
+    <value>Cannot Build</value>
+  </data>
+  <data name="Dialog.CannotBuild.NoTarget" xml:space="preserve">
+    <value>No buildable project or solution is selected.</value>
+  </data>
+  <data name="Dialog.BuildNotSupported.Title" xml:space="preserve">
+    <value>Build Not Supported</value>
+  </data>
+  <data name="Dialog.BuildNotSupported.Message" xml:space="preserve">
+    <value>Build support for {0} projects is coming in a later phase.</value>
+  </data>
+  <data name="Dialog.BuildAlreadyRunning.Title" xml:space="preserve">
+    <value>Build Already Running</value>
+  </data>
+  <data name="Dialog.CannotRun.Title" xml:space="preserve">
+    <value>Cannot Run</value>
+  </data>
+  <data name="Dialog.CannotRun.Message" xml:space="preserve">
+    <value>No runnable project is selected. A project must have OutputType Exe/WinExe (or use the ASP.NET Core Web SDK) to be runnable.</value>
+  </data>
+  <data name="Dialog.RunNotSupported.Title" xml:space="preserve">
+    <value>Run Not Supported</value>
+  </data>
+  <data name="Dialog.RunNotSupported.Message" xml:space="preserve">
+    <value>Run support for {0} projects is coming in a later phase.</value>
+  </data>
+  <data name="Dialog.ApplicationAlreadyRunning.Title" xml:space="preserve">
+    <value>Application Already Running</value>
+  </data>
+  <data name="Dialog.CannotDebug.Title" xml:space="preserve">
+    <value>Cannot Debug</value>
+  </data>
+  <data name="Dialog.CannotDebug.Message" xml:space="preserve">
+    <value>No debuggable project is selected. A project must have OutputType Exe/WinExe (or use the ASP.NET Core Web SDK) to be debuggable.</value>
+  </data>
+  <data name="Dialog.DebugNotSupported.Title" xml:space="preserve">
+    <value>Debug Not Supported</value>
+  </data>
+  <data name="Dialog.DebugNotSupported.Message" xml:space="preserve">
+    <value>Debug support for {0} projects is coming in a later phase.</value>
+  </data>
+  <data name="Dialog.DebugSessionAlreadyActive.Title" xml:space="preserve">
+    <value>Debug Session Already Active</value>
+  </data>
+  <data name="Dialog.NoTestProjectFound.Title" xml:space="preserve">
+    <value>No Test Project Found</value>
+  </data>
+  <data name="Dialog.NoTestProjectFound.MessageDetailed" xml:space="preserve">
+    <value>No project in this workspace was detected as a real .NET test project (no Microsoft.NET.Test.Sdk/xUnit/NUnit/MSTest reference found).</value>
+  </data>
+  <data name="Dialog.NoTestProjectFound.Message" xml:space="preserve">
+    <value>No project in this workspace was detected as a real .NET test project.</value>
+  </data>
+  <data name="Dialog.TestDiscoveryNotSupported.Title" xml:space="preserve">
+    <value>Test Discovery Not Supported</value>
+  </data>
+  <data name="Dialog.TestDiscoveryNotSupported.Message" xml:space="preserve">
+    <value>Test support for {0} projects is coming in a later phase.</value>
+  </data>
+  <data name="Dialog.TestDiscoveryAlreadyActive.Title" xml:space="preserve">
+    <value>Test Discovery Already Active</value>
+  </data>
+  <data name="Dialog.TestExecutionNotSupported.Title" xml:space="preserve">
+    <value>Test Execution Not Supported</value>
+  </data>
+  <data name="Dialog.TestExecutionNotSupported.Message" xml:space="preserve">
+    <value>Test support for {0} projects is coming in a later phase.</value>
+  </data>
+  <data name="Dialog.TestRunAlreadyActive.Title" xml:space="preserve">
+    <value>Test Run Already Active</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Title" xml:space="preserve">
+    <value>Workspace Not Trusted</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Build" xml:space="preserve">
+    <value>Building '{0}' will execute this project's own build commands (dotnet {1}). Trust this workspace and continue?</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Run" xml:space="preserve">
+    <value>Running '{0}' will execute this project's application code. Trust this workspace and continue?</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.Debug" xml:space="preserve">
+    <value>Debugging '{0}' will execute this project's application and debugger code. Trust this workspace and continue?</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.LanguageServer" xml:space="preserve">
+    <value>Starting the C# language server will analyze this workspace's project files (including evaluating them through MSBuild). Trust this workspace and continue?</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.TestOrGit" xml:space="preserve">
+    <value>{0} will execute this project's own build/test infrastructure. Trust this workspace and continue?</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.GitHooks" xml:space="preserve">
+    <value>{0} may execute this repository's own Git hooks. Trust this workspace and continue?</value>
+  </data>
+  <data name="Trust.Action.DiscoveringTests" xml:space="preserve">
+    <value>Discovering tests</value>
+  </data>
+  <data name="Trust.Action.RunningTests" xml:space="preserve">
+    <value>Running tests</value>
+  </data>
+  <data name="Trust.Action.StagingFile" xml:space="preserve">
+    <value>Staging a file</value>
+  </data>
+  <data name="Trust.Action.StagingAllChanges" xml:space="preserve">
+    <value>Staging all changes</value>
+  </data>
+  <data name="Trust.Action.UnstagingFile" xml:space="preserve">
+    <value>Unstaging a file</value>
+  </data>
+  <data name="Trust.Action.UnstagingAllChanges" xml:space="preserve">
+    <value>Unstaging all changes</value>
+  </data>
+  <data name="Trust.Action.DiscardingChanges" xml:space="preserve">
+    <value>Discarding changes</value>
+  </data>
+  <data name="Trust.Action.Committing" xml:space="preserve">
+    <value>Committing</value>
+  </data>
+  <data name="Trust.Action.CreatingBranch" xml:space="preserve">
+    <value>Creating a branch</value>
+  </data>
+  <data name="Trust.Action.CheckingOutBranch" xml:space="preserve">
+    <value>Checking out a branch</value>
+  </data>
+  <data name="Trust.Action.DeletingBranch" xml:space="preserve">
+    <value>Deleting a branch</value>
+  </data>
+  <data name="Dialog.NothingToCommit.Title" xml:space="preserve">
+    <value>Nothing to Commit</value>
+  </data>
+  <data name="Dialog.NothingToCommit.Message" xml:space="preserve">
+    <value>Stage at least one change before committing.</value>
+  </data>
+  <data name="Dialog.CommitMessageRequired.Title" xml:space="preserve">
+    <value>Commit Message Required</value>
+  </data>
+  <data name="Dialog.CommitMessageRequired.Message" xml:space="preserve">
+    <value>Enter a commit message before committing.</value>
+  </data>
+  <data name="Dialog.CheckoutBlocked.Title" xml:space="preserve">
+    <value>Checkout Blocked</value>
+  </data>
+  <data name="Dialog.CheckoutBlocked.Fallback" xml:space="preserve">
+    <value>Git refused this checkout.</value>
+  </data>
+  <data name="Dialog.CannotDeleteBranch.Title" xml:space="preserve">
+    <value>Cannot Delete Branch</value>
+  </data>
+  <data name="Dialog.CannotDeleteBranch.CurrentBranch" xml:space="preserve">
+    <value>The current branch cannot be deleted.</value>
+  </data>
+  <data name="Dialog.DeleteBranchBlocked.Title" xml:space="preserve">
+    <value>Delete Branch Blocked</value>
+  </data>
+  <data name="Dialog.DeleteBranchBlocked.Fallback" xml:space="preserve">
+    <value>Git refused to delete this branch.</value>
+  </data>
+  <data name="Dialog.GitOperationAlreadyRunning.Title" xml:space="preserve">
+    <value>Git Operation Already Running</value>
+  </data>
+  <data name="Dialog.DiscardChanges.Title" xml:space="preserve">
+    <value>Discard Changes</value>
+  </data>
+  <data name="Dialog.DiscardChanges.Message" xml:space="preserve">
+    <value>This will permanently discard real, uncommitted working-tree changes to '{0}'. This cannot be undone. Continue?</value>
+  </data>
+  <data name="Dialog.DeleteBranch.Title" xml:space="preserve">
+    <value>Delete Branch</value>
+  </data>
+  <data name="Dialog.DeleteBranch.Message" xml:space="preserve">
+    <value>Delete branch '{0}'? Git will refuse if it has unmerged commits.</value>
+  </data>
+  <data name="Dialog.PickFolder.Title" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="Dialog.PickFileToOpen.Title" xml:space="preserve">
+    <value>Open File</value>
+  </data>
+  <data name="Dialog.PickFileToSaveAs.Title" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+</root>
