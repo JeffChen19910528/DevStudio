@@ -105,9 +105,3 @@ execute real code from the project you opened.
 - `git` — required for the Source Control panel.
 - `netcoredbg` — required for debugging (install via `winget install Samsung.NetCoreDbg` on
   Windows, or your platform's package manager elsewhere).
-
-## Further reading
-
-- `ARCHITECTURE.md` — how the codebase is organized
-- `docs/adr/` — the reasoning behind each major design decision
-- `SECURITY.md` — the security model (Workspace Trust, process execution boundaries, etc.)

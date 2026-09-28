@@ -95,9 +95,3 @@ chmod +x scripts/publish.sh   # 第一次執行時才需要
 - **git**——使用原始碼控制面板時需要。
 - **netcoredbg**——偵錯功能需要（Windows 可透過
   `winget install Samsung.NetCoreDbg` 安裝，其他平台請使用對應的套件管理工具）。
-
-## 延伸閱讀
-
-- `ARCHITECTURE.md`——程式碼架構說明
-- `docs/adr/`——每個主要設計決策的完整理由
-- `SECURITY.md`——安全性模型（工作區信任、程序執行邊界等）
