@@ -9,6 +9,7 @@ using DevStudio.Core.Editor;
 using DevStudio.Core.Extensions;
 using DevStudio.Core.Git;
 using DevStudio.Core.Language;
+using DevStudio.Core.Packages;
 using DevStudio.Core.Platform;
 using DevStudio.Core.Processes;
 using DevStudio.Core.Projects;
@@ -62,6 +63,7 @@ public partial class MainWindowViewModel : ObservableObject
     public ToolchainsPanelViewModel Toolchains { get; }
     public SourceControlViewModel SourceControl { get; }
     public ExtensionsPanelViewModel Extensions { get; }
+    public PackageManagerViewModel Packages { get; }
     public StatusBarViewModel StatusBar { get; } = new();
 
     /// <summary>The single source of localized UI text (SKILL.md §4 [Phase 12]) — bound from
@@ -295,6 +297,7 @@ public partial class MainWindowViewModel : ObservableObject
         GitService gitService,
         ExtensionManager extensionManager,
         ICommandRegistry commandRegistry,
+        PackageService packageService,
         ILocalizationService localizationService)
     {
         _buildService = buildService;
@@ -326,6 +329,8 @@ public partial class MainWindowViewModel : ObservableObject
         SourceControl = new SourceControlViewModel(gitService, dialogService, EnsureGitWorkspaceTrustedAsync, _localizationService);
 
         Extensions = new ExtensionsPanelViewModel(extensionManager, commandRegistry, settingsService);
+
+        Packages = new PackageManagerViewModel(packageService, dialogService, EnsurePackageWorkspaceTrustedAsync, _localizationService);
 
         // The persisted language preference is applied once at startup (SKILL.md §8) — settings
         // are already loaded into settingsService.Current by the composition root before this
@@ -460,6 +465,7 @@ public partial class MainWindowViewModel : ObservableObject
         _lastDetectionGraph = graph;
         var displayGraph = ProjectCapabilityMatcher.ApplyToGraph(graph, Toolchains.Toolchains.ToList());
         _projectLookup = ProjectGraphLookup.FromGraph(displayGraph);
+        Packages.SetProjects(displayGraph.AllProjects);
 
         await Explorer.LoadRootAsync(path, _projectLookup).ConfigureAwait(true);
 
@@ -527,6 +533,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         var displayGraph = ProjectCapabilityMatcher.ApplyToGraph(_lastDetectionGraph, Toolchains.Toolchains.ToList());
         _projectLookup = ProjectGraphLookup.FromGraph(displayGraph);
+        Packages.SetProjects(displayGraph.AllProjects);
 
         await Explorer.LoadRootAsync(rootPath, _projectLookup).ConfigureAwait(true);
 
@@ -1086,6 +1093,24 @@ public partial class MainWindowViewModel : ObservableObject
         var trust = await _dialogService.ConfirmAsync(
             _localizationService.GetString("Dialog.WorkspaceNotTrusted.Title"),
             _localizationService.Format("Dialog.WorkspaceNotTrusted.GitHooks", actionDescription)).ConfigureAwait(true);
+        if (!trust) return false;
+
+        ToggleWorkspaceTrust();
+        return true;
+    }
+
+    /// <summary>Gates every Package Manager mutation (Add/Remove/Update/Restore) — installing or
+    /// restoring a package can run that ecosystem's own arbitrary install/build scripts (npm
+    /// lifecycle scripts, Python build hooks, MSBuild targets triggered by `dotnet restore`),
+    /// the same execution-risk class as Build/Run/Debug/Test/Git (SKILL.md §17). Read-only
+    /// inspection (installed/dependencies/outdated/search) is never gated.</summary>
+    private async Task<bool> EnsurePackageWorkspaceTrustedAsync(string actionDescription)
+    {
+        if (CurrentWorkspace is not { IsTrusted: false }) return true;
+
+        var trust = await _dialogService.ConfirmAsync(
+            _localizationService.GetString("Dialog.WorkspaceNotTrusted.Title"),
+            _localizationService.Format("Dialog.WorkspaceNotTrusted.PackageManager", actionDescription)).ConfigureAwait(true);
         if (!trust) return false;
 
         ToggleWorkspaceTrust();

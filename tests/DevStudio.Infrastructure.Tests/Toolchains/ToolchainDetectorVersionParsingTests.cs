@@ -130,4 +130,53 @@ public class ToolchainDetectorVersionParsingTests
         Assert.Equal(ToolchainDetectionState.Detected, result.State);
         Assert.Equal(WellKnownToolchainIds.Pnpm, result.Id);
     }
+
+    [Fact]
+    public async Task Maven_reports_NotInstalled_when_mvn_is_not_on_PATH()
+    {
+        // Real, honest fact on this machine (Phase 14 P1-A): mvn genuinely is not installed, so
+        // this exact NotInstalled path is real-testable even without a real Maven present.
+        var runner = new FakeProcessRunner();
+
+        var result = await new MavenToolchainDetector(runner).DetectAsync();
+
+        Assert.Equal(ToolchainDetectionState.NotInstalled, result.State);
+        Assert.Empty(result.Capabilities);
+    }
+
+    [Fact]
+    public async Task Maven_parses_the_first_line_of_its_version_banner_when_present()
+    {
+        var runner = new FakeProcessRunner();
+        runner.SetResult("mvn", 0, "Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)\n");
+
+        var result = await new MavenToolchainDetector(runner).DetectAsync();
+
+        Assert.Equal(ToolchainDetectionState.Detected, result.State);
+        Assert.Equal("Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)", result.Version);
+        Assert.Contains(ToolchainCapability.Package, result.Capabilities);
+    }
+
+    [Fact]
+    public async Task Gradle_reports_NotInstalled_when_gradle_is_not_on_PATH()
+    {
+        var runner = new FakeProcessRunner();
+
+        var result = await new GradleToolchainDetector(runner).DetectAsync();
+
+        Assert.Equal(ToolchainDetectionState.NotInstalled, result.State);
+        Assert.Empty(result.Capabilities);
+    }
+
+    [Fact]
+    public async Task Gradle_extracts_the_Gradle_version_line_from_its_verbose_banner()
+    {
+        var runner = new FakeProcessRunner();
+        runner.SetResult("gradle", 0, "\n------------------------------------------------------------\nGradle 8.10.2\n------------------------------------------------------------\n\nKotlin: 1.9.24\n");
+
+        var result = await new GradleToolchainDetector(runner).DetectAsync();
+
+        Assert.Equal(ToolchainDetectionState.Detected, result.State);
+        Assert.Equal("Gradle 8.10.2", result.Version);
+    }
 }

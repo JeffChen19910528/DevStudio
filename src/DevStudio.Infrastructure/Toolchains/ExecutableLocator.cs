@@ -9,8 +9,16 @@ public static class ExecutableLocator
         var pathVariable = Environment.GetEnvironmentVariable("PATH");
         if (string.IsNullOrEmpty(pathVariable)) return null;
 
+        // Real, Phase 13 finding: some Windows PATH directories (observed: Node.js's own install
+        // directory) contain an extension-less POSIX shell-script twin alongside the real Windows
+        // launcher (e.g. a bare "npm" shell script next to "npm.cmd", shipped for WSL/git-bash
+        // users) — CreateProcess can "find" that file but cannot run it ("not a valid application
+        // for this OS platform"). Checking the real Windows launcher extensions first means a
+        // Windows-runnable match always wins over a same-named non-Windows script; the bare name
+        // is still tried last so a tool that genuinely ships as an extension-less native binary
+        // is still found.
         var candidateNames = OperatingSystem.IsWindows()
-            ? new[] { executableName, executableName + ".exe", executableName + ".cmd", executableName + ".bat" }
+            ? new[] { executableName + ".exe", executableName + ".cmd", executableName + ".bat", executableName }
             : new[] { executableName };
 
         foreach (var directory in pathVariable.Split(Path.PathSeparator))

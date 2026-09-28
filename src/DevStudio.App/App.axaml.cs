@@ -8,6 +8,7 @@ using DevStudio.Core.Debug;
 using DevStudio.Core.Extensions;
 using DevStudio.Core.Git;
 using DevStudio.Core.Language;
+using DevStudio.Core.Packages;
 using DevStudio.Core.Projects;
 using DevStudio.Core.Run;
 using DevStudio.Core.Terminal;
@@ -19,6 +20,7 @@ using DevStudio.Infrastructure.Editor;
 using DevStudio.Infrastructure.Extensions;
 using DevStudio.Infrastructure.Git;
 using DevStudio.Infrastructure.Language;
+using DevStudio.Infrastructure.Packages;
 using DevStudio.Infrastructure.Processes;
 using DevStudio.Infrastructure.Projects;
 using DevStudio.Infrastructure.Run;
@@ -77,11 +79,15 @@ public partial class App : Application
                 new NodePackageManagerToolchainDetector(processRunner, WellKnownToolchainIds.Pnpm, "pnpm"),
                 new NodePackageManagerToolchainDetector(processRunner, WellKnownToolchainIds.Yarn, "yarn"),
                 new JavaToolchainDetector(processRunner),
+                new MavenToolchainDetector(processRunner),
+                new GradleToolchainDetector(processRunner),
                 new CMakeToolchainDetector(processRunner),
                 new GccToolchainDetector(processRunner),
                 new ClangToolchainDetector(processRunner),
                 new RustToolchainDetector(processRunner),
                 new GoToolchainDetector(processRunner),
+                new VcpkgToolchainDetector(processRunner),
+                new ConanToolchainDetector(processRunner),
                 new GitToolchainDetector(processRunner),
                 new DockerToolchainDetector(processRunner),
             });
@@ -112,6 +118,19 @@ public partial class App : Application
             }, buildService);
 
             var gitService = new GitService(new GitCliAdapter(processRunner, toolchainRegistry));
+
+            var packageService = new PackageService(new PackageManagerRegistry(new IPackageManagerAdapter[]
+            {
+                new NuGetPackageAdapter(processRunner, toolchainRegistry),
+                new PythonPackageAdapter(processRunner, toolchainRegistry),
+                new NpmPackageAdapter(processRunner, toolchainRegistry),
+                new MavenPackageAdapter(processRunner, toolchainRegistry),
+                new GradlePackageAdapter(processRunner, toolchainRegistry),
+                new CargoPackageAdapter(processRunner, toolchainRegistry),
+                new GoModulePackageAdapter(processRunner, toolchainRegistry),
+                new VcpkgPackageAdapter(processRunner, toolchainRegistry),
+                new ConanPackageAdapter(processRunner, toolchainRegistry),
+            }));
 
             // Loading the small user-settings JSON file synchronously at startup keeps the
             // composition root simple; the file is a few hundred bytes at most.
@@ -167,6 +186,7 @@ public partial class App : Application
                 gitService,
                 extensionManager,
                 commandRegistry,
+                packageService,
                 localizationService);
 
             window.DataContext = viewModel;

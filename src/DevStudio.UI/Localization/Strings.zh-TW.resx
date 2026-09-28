@@ -805,4 +805,130 @@
   <data name="Dialog.PickFileToSaveAs.Title" xml:space="preserve">
     <value>另存新檔</value>
   </data>
+  <data name="PackageManager.Title" xml:space="preserve">
+    <value>套件管理員</value>
+  </data>
+  <data name="PackageManager.Project" xml:space="preserve">
+    <value>專案:</value>
+  </data>
+  <data name="PackageManager.Manager" xml:space="preserve">
+    <value>套件管理工具:</value>
+  </data>
+  <data name="PackageManager.NoProject" xml:space="preserve">
+    <value>請開啟包含已偵測專案的工作區以管理其套件。</value>
+  </data>
+  <data name="PackageManager.NoManager" xml:space="preserve">
+    <value>未偵測到適用於此專案的套件管理工具。</value>
+  </data>
+  <data name="PackageManager.Unavailable" xml:space="preserve">
+    <value>無法使用: {0}</value>
+  </data>
+  <data name="PackageManager.Tab.Installed" xml:space="preserve">
+    <value>已安裝</value>
+  </data>
+  <data name="PackageManager.Tab.Browse" xml:space="preserve">
+    <value>瀏覽</value>
+  </data>
+  <data name="PackageManager.Tab.Updates" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="PackageManager.Tab.Dependencies" xml:space="preserve">
+    <value>相依套件</value>
+  </data>
+  <data name="PackageManager.Column.Package" xml:space="preserve">
+    <value>套件</value>
+  </data>
+  <data name="PackageManager.Column.Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="PackageManager.Column.Type" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="PackageManager.Column.Current" xml:space="preserve">
+    <value>目前版本</value>
+  </data>
+  <data name="PackageManager.Column.Latest" xml:space="preserve">
+    <value>最新版本</value>
+  </data>
+  <data name="PackageManager.Type.Direct" xml:space="preserve">
+    <value>直接相依</value>
+  </data>
+  <data name="PackageManager.Type.Transitive" xml:space="preserve">
+    <value>間接相依</value>
+  </data>
+  <data name="PackageManager.Search.Placeholder" xml:space="preserve">
+    <value>搜尋套件...</value>
+  </data>
+  <data name="PackageManager.Search.Button" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="PackageManager.IncludePrerelease" xml:space="preserve">
+    <value>包含預覽版</value>
+  </data>
+  <data name="PackageManager.NewPackageId.Placeholder" xml:space="preserve">
+    <value>套件識別碼</value>
+  </data>
+  <data name="PackageManager.NewPackageVersion.Placeholder" xml:space="preserve">
+    <value>版本 (選填)</value>
+  </data>
+  <data name="PackageManager.Add.Button" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="PackageManager.Remove.Button" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="PackageManager.Update.Button" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="PackageManager.Restore.Button" xml:space="preserve">
+    <value>還原套件</value>
+  </data>
+  <data name="PackageManager.Refresh.Button" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="PackageManager.NoPackagesInstalled" xml:space="preserve">
+    <value>尚未安裝任何套件。</value>
+  </data>
+  <data name="PackageManager.NoResults" xml:space="preserve">
+    <value>沒有搜尋結果。</value>
+  </data>
+  <data name="PackageManager.NoUpdatesAvailable" xml:space="preserve">
+    <value>所有套件皆為最新版本。</value>
+  </data>
+  <data name="PackageManager.NoDependencies" xml:space="preserve">
+    <value>沒有可用的相依性資訊。</value>
+  </data>
+  <data name="PackageManager.SearchUnsupported" xml:space="preserve">
+    <value>{0} 不支援搜尋套件。</value>
+  </data>
+  <data name="Trust.Action.InstallingPackage" xml:space="preserve">
+    <value>安裝套件</value>
+  </data>
+  <data name="Trust.Action.RemovingPackage" xml:space="preserve">
+    <value>移除套件</value>
+  </data>
+  <data name="Trust.Action.UpdatingPackage" xml:space="preserve">
+    <value>更新套件</value>
+  </data>
+  <data name="Trust.Action.RestoringPackages" xml:space="preserve">
+    <value>還原套件</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.PackageManager" xml:space="preserve">
+    <value>{0} 可能會執行此專案自身的套件管理工具安裝/建置指令碼。要信任此工作區並繼續嗎?</value>
+  </data>
+  <data name="Dialog.RemovePackage.Title" xml:space="preserve">
+    <value>移除套件</value>
+  </data>
+  <data name="Dialog.RemovePackage.Message" xml:space="preserve">
+    <value>要從此專案移除套件 '{0}' 嗎?</value>
+  </data>
+  <data name="Dialog.PackageOperationFailed.Title" xml:space="preserve">
+    <value>套件操作失敗</value>
+  </data>
+  <data name="Dialog.PackageOperationFailed.Fallback" xml:space="preserve">
+    <value>套件管理工具回報失敗。</value>
+  </data>
+  <data name="Dialog.PackageOperationAlreadyRunning.Title" xml:space="preserve">
+    <value>套件操作已在執行中</value>
+  </data>
 </root>

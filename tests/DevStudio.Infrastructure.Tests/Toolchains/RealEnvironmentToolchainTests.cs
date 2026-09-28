@@ -117,4 +117,39 @@ public class RealEnvironmentToolchainTests
         var result = await new ClangToolchainDetector(Runner).DetectAsync();
         Assert.Equal(ToolchainDetectionState.NotInstalled, result.State);
     }
+
+    // Phase 14 P1-A: real, honest facts on this specific machine (a bare JDK only, no build
+    // tool). This is the one thing about Maven/Gradle that IS real-environment validatable here
+    // — their real absence — which is exactly why MavenPackageAdapter/GradlePackageAdapter must
+    // never be described as "real-tested" for anything beyond this NotInstalled path (ADR-015).
+    [Fact]
+    public async Task Maven_is_not_installed_on_this_machine()
+    {
+        var result = await new MavenToolchainDetector(Runner).DetectAsync();
+        Assert.Equal(ToolchainDetectionState.NotInstalled, result.State);
+    }
+
+    [Fact]
+    public async Task Gradle_is_not_installed_on_this_machine()
+    {
+        var result = await new GradleToolchainDetector(Runner).DetectAsync();
+        Assert.Equal(ToolchainDetectionState.NotInstalled, result.State);
+    }
+
+    // Phase 14 P1-C: real, honest facts on this specific machine — neither vcpkg nor conan is
+    // installed. This is the one thing about VcpkgPackageAdapter/ConanPackageAdapter that IS
+    // real-environment validatable here (ADR-015).
+    [Fact]
+    public async Task Vcpkg_is_not_installed_on_this_machine()
+    {
+        var result = await new VcpkgToolchainDetector(Runner).DetectAsync();
+        Assert.Equal(ToolchainDetectionState.NotInstalled, result.State);
+    }
+
+    [Fact]
+    public async Task Conan_is_not_installed_on_this_machine()
+    {
+        var result = await new ConanToolchainDetector(Runner).DetectAsync();
+        Assert.Equal(ToolchainDetectionState.NotInstalled, result.State);
+    }
 }

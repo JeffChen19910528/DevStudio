@@ -10,6 +10,8 @@
         xmlns:lang="using:DevStudio.Core.Language"
         xmlns:git="using:DevStudio.Core.Git"
         xmlns:ext="using:DevStudio.Core.Extensions"
+        xmlns:pkg="using:DevStudio.Core.Packages"
+        xmlns:proj="using:DevStudio.Core.Projects"
         xmlns:loc="using:DevStudio.UI.Localization"
         x:Class="DevStudio.App.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -721,6 +723,133 @@
                 </StackPanel>
               </Grid>
             </Grid>
+          </Grid>
+        </TabItem>
+
+        <TabItem Header="{Binding Loc[PackageManager.Title]}">
+          <Grid RowDefinitions="Auto,Auto,*">
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" Margin="8">
+              <TextBlock Text="{Binding Loc[PackageManager.Project]}" VerticalAlignment="Center" />
+              <ComboBox ItemsSource="{Binding Packages.Projects}" SelectedItem="{Binding Packages.SelectedProject}" MinWidth="160">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="proj:ProjectInfo">
+                    <TextBlock Text="{Binding Name}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+              <TextBlock Text="{Binding Loc[PackageManager.Manager]}" VerticalAlignment="Center" />
+              <ComboBox ItemsSource="{Binding Packages.ApplicableManagers}" SelectedItem="{Binding Packages.SelectedManager}" MinWidth="120">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="pkg:PackageProject">
+                    <TextBlock Text="{Binding PackageManagerDisplayName}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+              <Button Content="{Binding Loc[PackageManager.Refresh.Button]}" Command="{Binding Packages.RefreshCommand}" IsEnabled="{Binding !Packages.IsBusy}" />
+              <Button Content="{Binding Loc[PackageManager.Restore.Button]}" Command="{Binding Packages.RestoreCommand}"
+                      IsEnabled="{Binding Packages.SelectedManager.Capabilities.Restore}" />
+            </StackPanel>
+
+            <TextBlock Grid.Row="1" Text="{Binding Packages.SelectedManager.UnavailableReason}" Foreground="OrangeRed"
+                       TextWrapping="Wrap" Margin="8,0,8,8" IsVisible="{Binding Packages.HasUnavailableReason}" />
+
+            <TextBlock Grid.Row="2" Text="{Binding Loc[PackageManager.NoProject]}" Margin="16" IsVisible="{Binding Packages.HasNoProject}" />
+            <TextBlock Grid.Row="2" Text="{Binding Loc[PackageManager.NoManager]}" Margin="16" IsVisible="{Binding Packages.HasNoManager}" />
+
+            <TabControl Grid.Row="2" IsVisible="{Binding !Packages.HasNoManager}">
+              <TabItem Header="{Binding Loc[PackageManager.Tab.Installed]}">
+                <Grid RowDefinitions="*,Auto">
+                  <ListBox Grid.Row="0" ItemsSource="{Binding Packages.Installed}" SelectedItem="{Binding Packages.SelectedInstalled}">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="pkg:PackageReference">
+                        <Grid ColumnDefinitions="2*,120,100,80">
+                          <TextBlock Grid.Column="0" Text="{Binding PackageId}" />
+                          <TextBlock Grid.Column="1" Text="{Binding ResolvedVersion}" Foreground="Gray" />
+                          <TextBlock Grid.Column="2" Text="{Binding Kind}" Opacity="0.7" />
+                          <Button Grid.Column="3" Content="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Loc[PackageManager.Remove.Button]}"
+                                  Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Packages.RemoveCommand}"
+                                  CommandParameter="{Binding}" />
+                        </Grid>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                  <TextBlock Grid.Row="0" Text="{Binding Loc[PackageManager.NoPackagesInstalled]}" Margin="16" VerticalAlignment="Top"
+                             IsVisible="{Binding Packages.HasNoInstalled}" />
+                  <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="4" Margin="8">
+                    <TextBox PlaceholderText="{Binding Loc[PackageManager.NewPackageId.Placeholder]}" Text="{Binding Packages.NewPackageId}" Width="200" />
+                    <TextBox PlaceholderText="{Binding Loc[PackageManager.NewPackageVersion.Placeholder]}" Text="{Binding Packages.NewPackageVersion}" Width="140" />
+                    <Button Content="{Binding Loc[PackageManager.Add.Button]}" Command="{Binding Packages.AddCommand}"
+                            IsEnabled="{Binding Packages.SelectedManager.Capabilities.Add}" />
+                  </StackPanel>
+                </Grid>
+              </TabItem>
+
+              <TabItem Header="{Binding Loc[PackageManager.Tab.Browse]}">
+                <Grid RowDefinitions="Auto,*">
+                  <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="4" Margin="8">
+                    <TextBox PlaceholderText="{Binding Loc[PackageManager.Search.Placeholder]}" Text="{Binding Packages.SearchQuery}" Width="240" />
+                    <CheckBox Content="{Binding Loc[PackageManager.IncludePrerelease]}" IsChecked="{Binding Packages.IncludePrerelease}" />
+                    <Button Content="{Binding Loc[PackageManager.Search.Button]}" Command="{Binding Packages.SearchCommand}"
+                            IsEnabled="{Binding Packages.SelectedManager.Capabilities.Search}" />
+                  </StackPanel>
+                  <ListBox Grid.Row="1" ItemsSource="{Binding Packages.SearchResults}">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="pkg:PackageSearchResult">
+                        <Grid RowDefinitions="Auto,Auto">
+                          <TextBlock Grid.Row="0">
+                            <Run Text="{Binding PackageId}" FontWeight="Bold" /><Run Text="  " />
+                            <Run Text="{Binding Version}" Foreground="Gray" /><Run Text="  " />
+                            <Run Text="{Binding Source}" Foreground="Gray" />
+                          </TextBlock>
+                          <TextBlock Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap" Opacity="0.8" />
+                        </Grid>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                  <TextBlock Grid.Row="1" Text="{Binding Loc[PackageManager.NoResults]}" Margin="16" VerticalAlignment="Top"
+                             IsVisible="{Binding Packages.HasNoSearchResults}" />
+                </Grid>
+              </TabItem>
+
+              <TabItem Header="{Binding Loc[PackageManager.Tab.Updates]}">
+                <Grid>
+                  <ListBox ItemsSource="{Binding Packages.Outdated}">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="pkg:PackageReference">
+                        <Grid ColumnDefinitions="2*,100,100,80">
+                          <TextBlock Grid.Column="0" Text="{Binding PackageId}" />
+                          <TextBlock Grid.Column="1" Text="{Binding ResolvedVersion}" Foreground="Gray" />
+                          <TextBlock Grid.Column="2" Text="{Binding LatestVersion}" Foreground="ForestGreen" />
+                          <Button Grid.Column="3" Content="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Loc[PackageManager.Update.Button]}"
+                                  Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Packages.UpdateCommand}"
+                                  CommandParameter="{Binding}" />
+                        </Grid>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                  <TextBlock Text="{Binding Loc[PackageManager.NoUpdatesAvailable]}" Margin="16" VerticalAlignment="Top"
+                             IsVisible="{Binding Packages.HasNoOutdated}" />
+                </Grid>
+              </TabItem>
+
+              <TabItem Header="{Binding Loc[PackageManager.Tab.Dependencies]}">
+                <Grid>
+                  <ListBox ItemsSource="{Binding Packages.Dependencies}">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="pkg:PackageDependency">
+                        <Grid ColumnDefinitions="2*,150,120">
+                          <TextBlock Grid.Column="0" Text="{Binding PackageId}" />
+                          <TextBlock Grid.Column="1" Text="{Binding VersionRange}" Foreground="Gray" />
+                          <TextBlock Grid.Column="2" Text="{Binding Kind}" Opacity="0.7" />
+                        </Grid>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                  <TextBlock Text="{Binding Loc[PackageManager.NoDependencies]}" Margin="16" VerticalAlignment="Top"
+                             IsVisible="{Binding Packages.HasNoDependencies}" />
+                </Grid>
+              </TabItem>
+            </TabControl>
           </Grid>
         </TabItem>
       </TabControl>

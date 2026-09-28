@@ -117,6 +117,7 @@ public class LocalizationServiceTests
             "Toolbar.Build", "Toolbar.Run", "Explorer.Title", "Properties.Title",
             "Problems.Title", "Terminal.Title", "Toolchains.Title", "TestExplorer.Title",
             "SourceControl.Title", "Extensions.Title", "Settings.Title", "Settings.Language",
+            "PackageManager.Title", "PackageManager.Tab.Installed", "PackageManager.Tab.Browse",
             "Dialog.UnsavedChanges.Title", "Dialog.WorkspaceNotTrusted.Title",
         };
 

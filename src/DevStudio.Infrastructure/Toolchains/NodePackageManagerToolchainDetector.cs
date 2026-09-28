@@ -21,14 +21,21 @@ public sealed class NodePackageManagerToolchainDetector : IToolchainDetector
 
     public async Task<ToolchainInfo> DetectAsync(CancellationToken cancellationToken = default)
     {
-        var probe = await ToolchainProbe.RunAsync(_processRunner, _executableName, new[] { "--version" }, cancellationToken: cancellationToken).ConfigureAwait(false);
+        // Real, Phase 13 finding: on Windows, npm/pnpm/yarn ship only as ".cmd" shims (no
+        // ".exe"), and Win32's CreateProcess auto-appends ".exe" — never ".cmd" — to an
+        // extension-less module name. Probing the bare executable name therefore throws
+        // Win32Exception and misreports a genuinely-installed npm as not installed. Resolving
+        // through ExecutableLocator first (same resolution ProjectAdapter code already uses)
+        // fixes this without changing behavior on Linux/macOS, where the bare name always worked.
+        var resolvedPath = ExecutableLocator.FindOnPath(_executableName);
+        var probe = await ToolchainProbe.RunAsync(_processRunner, resolvedPath ?? _executableName, new[] { "--version" }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
         return probe.Outcome switch
         {
             ToolchainProbeOutcome.NotFound => Result(ToolchainDetectionState.NotInstalled),
             ToolchainProbeOutcome.TimedOut => Result(ToolchainDetectionState.DetectionTimedOut, warning: $"'{_executableName} --version' timed out."),
             ToolchainProbeOutcome.Failed => Result(ToolchainDetectionState.DetectionFailed, warning: $"'{_executableName} --version' exited with a non-zero code."),
-            _ => Result(ToolchainDetectionState.Detected, probe.CombinedOutput.Trim(), ExecutableLocator.FindOnPath(_executableName)),
+            _ => Result(ToolchainDetectionState.Detected, probe.CombinedOutput.Trim(), resolvedPath),
         };
     }
 

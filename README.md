@@ -21,6 +21,12 @@ single, consistent interface.
   the real Roslyn language server.
 - **Runs your .NET tests** and shows results in a Test Explorer.
 - **Includes a Source Control panel** backed by your real, locally installed `git`.
+- **Includes a Package Manager panel** for viewing, searching, adding, removing, updating, and
+  restoring dependencies — real support for NuGet (.NET), pip (Python), npm (Node), Maven,
+  Gradle, Cargo, Go Modules, vcpkg, and Conan, gated by Workspace Trust for anything that mutates
+  a project (some ecosystems, like Gradle, only support viewing — see `CLAUDE.md`'s Known
+  Limitations for exactly which operations each one supports). pnpm, Yarn, Poetry, and uv are not
+  yet supported.
 - **Supports extensions** through a simple manifest + command-contribution model.
 - **Supports two interface languages** — English and Traditional Chinese — switchable at any time
   from Settings, with no restart required.

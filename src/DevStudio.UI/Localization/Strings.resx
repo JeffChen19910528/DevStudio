@@ -805,4 +805,130 @@ Reason:
   <data name="Dialog.PickFileToSaveAs.Title" xml:space="preserve">
     <value>Save As</value>
   </data>
+  <data name="PackageManager.Title" xml:space="preserve">
+    <value>Package Manager</value>
+  </data>
+  <data name="PackageManager.Project" xml:space="preserve">
+    <value>Project:</value>
+  </data>
+  <data name="PackageManager.Manager" xml:space="preserve">
+    <value>Package manager:</value>
+  </data>
+  <data name="PackageManager.NoProject" xml:space="preserve">
+    <value>Open a workspace with a detected project to manage its packages.</value>
+  </data>
+  <data name="PackageManager.NoManager" xml:space="preserve">
+    <value>No package manager was detected for this project.</value>
+  </data>
+  <data name="PackageManager.Unavailable" xml:space="preserve">
+    <value>Unavailable: {0}</value>
+  </data>
+  <data name="PackageManager.Tab.Installed" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="PackageManager.Tab.Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="PackageManager.Tab.Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="PackageManager.Tab.Dependencies" xml:space="preserve">
+    <value>Dependencies</value>
+  </data>
+  <data name="PackageManager.Column.Package" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="PackageManager.Column.Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="PackageManager.Column.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="PackageManager.Column.Current" xml:space="preserve">
+    <value>Current</value>
+  </data>
+  <data name="PackageManager.Column.Latest" xml:space="preserve">
+    <value>Latest</value>
+  </data>
+  <data name="PackageManager.Type.Direct" xml:space="preserve">
+    <value>Direct</value>
+  </data>
+  <data name="PackageManager.Type.Transitive" xml:space="preserve">
+    <value>Transitive</value>
+  </data>
+  <data name="PackageManager.Search.Placeholder" xml:space="preserve">
+    <value>Search packages...</value>
+  </data>
+  <data name="PackageManager.Search.Button" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="PackageManager.IncludePrerelease" xml:space="preserve">
+    <value>Include prerelease</value>
+  </data>
+  <data name="PackageManager.NewPackageId.Placeholder" xml:space="preserve">
+    <value>Package id</value>
+  </data>
+  <data name="PackageManager.NewPackageVersion.Placeholder" xml:space="preserve">
+    <value>Version (optional)</value>
+  </data>
+  <data name="PackageManager.Add.Button" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="PackageManager.Remove.Button" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="PackageManager.Update.Button" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="PackageManager.Restore.Button" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="PackageManager.Refresh.Button" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="PackageManager.NoPackagesInstalled" xml:space="preserve">
+    <value>No packages are installed.</value>
+  </data>
+  <data name="PackageManager.NoResults" xml:space="preserve">
+    <value>No search results.</value>
+  </data>
+  <data name="PackageManager.NoUpdatesAvailable" xml:space="preserve">
+    <value>Everything is up to date.</value>
+  </data>
+  <data name="PackageManager.NoDependencies" xml:space="preserve">
+    <value>No dependency information is available.</value>
+  </data>
+  <data name="PackageManager.SearchUnsupported" xml:space="preserve">
+    <value>{0} does not support searching for packages.</value>
+  </data>
+  <data name="Trust.Action.InstallingPackage" xml:space="preserve">
+    <value>Installing a package</value>
+  </data>
+  <data name="Trust.Action.RemovingPackage" xml:space="preserve">
+    <value>Removing a package</value>
+  </data>
+  <data name="Trust.Action.UpdatingPackage" xml:space="preserve">
+    <value>Updating a package</value>
+  </data>
+  <data name="Trust.Action.RestoringPackages" xml:space="preserve">
+    <value>Restoring packages</value>
+  </data>
+  <data name="Dialog.WorkspaceNotTrusted.PackageManager" xml:space="preserve">
+    <value>{0} may execute this project's own package-manager install/build scripts. Trust this workspace and continue?</value>
+  </data>
+  <data name="Dialog.RemovePackage.Title" xml:space="preserve">
+    <value>Remove Package</value>
+  </data>
+  <data name="Dialog.RemovePackage.Message" xml:space="preserve">
+    <value>Remove package '{0}' from this project?</value>
+  </data>
+  <data name="Dialog.PackageOperationFailed.Title" xml:space="preserve">
+    <value>Package Operation Failed</value>
+  </data>
+  <data name="Dialog.PackageOperationFailed.Fallback" xml:space="preserve">
+    <value>The package manager reported a failure.</value>
+  </data>
+  <data name="Dialog.PackageOperationAlreadyRunning.Title" xml:space="preserve">
+    <value>Package Operation Already Running</value>
+  </data>
 </root>

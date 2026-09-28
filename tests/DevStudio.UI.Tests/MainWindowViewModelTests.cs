@@ -3,6 +3,7 @@ using DevStudio.Core.Debug;
 using DevStudio.Core.Extensions;
 using DevStudio.Core.Git;
 using DevStudio.Core.Language;
+using DevStudio.Core.Packages;
 using DevStudio.Core.Projects;
 using DevStudio.Core.Run;
 using DevStudio.Core.Settings;
@@ -46,6 +47,7 @@ public class MainWindowViewModelTests
         var extensionDiscovery = new FakeExtensionDiscovery();
         var commandRegistry = new CommandRegistry();
         var extensionManager = new ExtensionManager(extensionDiscovery, new FakeExtensionLoader(), commandRegistry, Array.Empty<string>());
+        var packageService = new PackageService(new PackageManagerRegistry(Array.Empty<IPackageManagerAdapter>()));
         var localizationService = new LocalizationService();
 
         var vm = new MainWindowViewModel(
@@ -68,6 +70,7 @@ public class MainWindowViewModelTests
             gitService,
             extensionManager,
             commandRegistry,
+            packageService,
             localizationService);
 
         return (vm, textFiles, filePicker, dialogs, folderPicker, terminals, settings, workspaceState, toolchains, buildAdapter, runAdapter, debuggerAdapter, languageAdapter, testAdapter, gitAdapter, extensionDiscovery);
