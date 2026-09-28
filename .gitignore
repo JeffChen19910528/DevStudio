@@ -16,10 +16,12 @@ out/
 *.coverage
 *.coveragexml
 
-## NuGet
+## NuGet (legacy packages.config restore folder at the repo/solution root only —
+## intentionally NOT **/packages/*, which on a case-insensitive filesystem also
+## matches source directories named "Packages", e.g. src/*/Packages/)
 *.nupkg
-**/packages/*
-!**/packages/build/
+/packages/*
+!/packages/build/
 
 ## OS files
 .DS_Store
