@@ -139,10 +139,19 @@ public sealed class DotNetRunAdapter : IRunAdapter
     {
         var iisExpress = Array.Find(IisExpressLocations, File.Exists);
         if (iisExpress is null)
+        {
+            // Open the IIS Express download page automatically so the user doesn't need
+            // to search for it — IIS Express is a free standalone download from Microsoft,
+            // no Visual Studio required.
+            try { Process.Start(new ProcessStartInfo("https://www.microsoft.com/en-us/download/details.aspx?id=48264") { UseShellExecute = true }); }
+            catch { }
             throw new InvalidOperationException(
-                "IIS Express is not installed. Install it via the Visual Studio Installer " +
-                "(Individual Components → Web Development Tools → IIS Express) " +
-                "to run legacy ASP.NET Web Application projects.");
+                "IIS Express is not installed. " +
+                "The download page has been opened in your browser — " +
+                "download and run the installer (iisexpress_amd64_en-US.msi or iisexpress_x86_en-US.msi), " +
+                "then try running the project again. " +
+                "IIS Express is free and does not require Visual Studio.");
+        }
 
         var port = AllocateEphemeralPort();
         var url = $"http://localhost:{port}";
