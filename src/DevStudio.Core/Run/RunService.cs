@@ -62,7 +62,7 @@ public sealed class RunService
             return;
         }
 
-        if (configuration.BuildBeforeRun)
+        if (configuration.BuildBeforeRun && adapter.RequiresBuildBeforeRun(configuration))
         {
             var buildResult = await _buildService.ExecuteAsync(configuration.Target, configuration.BuildConfiguration, BuildOperation.Build, buildOutputSink, cancellationToken).ConfigureAwait(false);
             if (buildResult.Status != BuildStatus.Succeeded)

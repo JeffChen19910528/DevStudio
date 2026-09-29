@@ -13,6 +13,11 @@ public interface IRunAdapter
 {
     bool SupportsProjectType(ProjectType projectType);
 
+    /// <summary>Returns false when the adapter handles projects that must not be built
+    /// via <c>dotnet build</c> before launching — e.g. legacy ASP.NET Web Applications
+    /// that are served directly by IIS Express from source. Defaults to true.</summary>
+    bool RequiresBuildBeforeRun(RunConfiguration configuration) => true;
+
     Task<IRunningApplication> StartAsync(RunConfiguration configuration, IProcessOutputSink? outputSink = null, CancellationToken cancellationToken = default);
 }
 

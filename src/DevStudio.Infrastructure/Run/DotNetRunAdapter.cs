@@ -52,6 +52,10 @@ public sealed class DotNetRunAdapter : IRunAdapter
 
     public bool SupportsProjectType(ProjectType projectType) => projectType == ProjectType.DotNet;
 
+    // Legacy ASP.NET Web Applications run directly via IIS Express from source — no dotnet build.
+    public bool RequiresBuildBeforeRun(RunConfiguration configuration)
+        => !IsLegacyWebProject(configuration.Target.FilePath);
+
     public async Task<IRunningApplication> StartAsync(RunConfiguration configuration, IProcessOutputSink? outputSink = null, CancellationToken cancellationToken = default)
     {
         var dotnet = _toolchainRegistry.Get(WellKnownToolchainIds.DotNet);
