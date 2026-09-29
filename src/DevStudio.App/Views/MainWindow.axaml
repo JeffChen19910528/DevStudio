@@ -104,55 +104,58 @@
       </MenuItem>
     </Menu>
 
-    <!-- Toolbar -->
-    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-    <StackPanel Orientation="Horizontal" Spacing="4" Margin="4">
-      <Button Content="{Binding Loc[Toolbar.OpenFolder]}" Command="{Binding OpenFolderCommand}" />
-      <Button Content="{Binding Loc[Toolbar.Save]}" Command="{Binding SaveCommand}" />
-      <Button Content="{Binding Loc[Toolbar.Terminal]}" Command="{Binding OpenTerminalCommand}" />
-      <Separator />
-      <Button Content="{Binding Loc[Toolbar.Build]}" Command="{Binding BuildCommand}" IsEnabled="{Binding !IsBuildRunning}" />
-      <Button Content="{Binding Loc[Toolbar.Cancel]}" Command="{Binding CancelBuildCommand}" IsEnabled="{Binding IsBuildRunning}" />
-      <ComboBox ItemsSource="{Binding AvailableBuildConfigurations}" SelectedItem="{Binding SelectedBuildConfiguration}"
-                IsEnabled="{Binding !IsBuildRunning}" MinWidth="90">
-        <ComboBox.ItemTemplate>
-          <DataTemplate x:DataType="wsp:BuildConfiguration">
-            <TextBlock Text="{Binding Name}" />
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
-      <Separator />
-      <ComboBox ItemsSource="{Binding RunConfigurations}" SelectedItem="{Binding SelectedRunConfiguration}"
-                IsEnabled="{Binding CanRun}" MinWidth="120">
-        <ComboBox.ItemTemplate>
-          <DataTemplate x:DataType="run:RunConfiguration">
-            <TextBlock Text="{Binding Name}" />
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
-      <Button Content="{Binding Loc[Toolbar.Run]}" Command="{Binding RunCommand}" IsEnabled="{Binding CanRun}" ToolTip.Tip="{Binding Loc[Toolbar.Run.Tooltip]}" />
-      <Button Content="{Binding Loc[Toolbar.Stop]}" Command="{Binding StopCommand}" IsEnabled="{Binding CanStopOrRestart}" />
-      <Button Content="{Binding Loc[Toolbar.Restart]}" Command="{Binding RestartCommand}" IsEnabled="{Binding CanStopOrRestart}" />
-      <Separator />
-      <Button Content="{Binding Loc[Toolbar.StartDebugging]}" Command="{Binding StartDebuggingCommand}" IsEnabled="{Binding CanStartDebugging}" />
-      <Button Content="{Binding Loc[Toolbar.Continue]}" Command="{Binding ContinueDebuggingCommand}" IsEnabled="{Binding CanContinueDebugging}" />
-      <Button Content="{Binding Loc[Toolbar.Pause]}" Command="{Binding PauseDebuggingCommand}" IsEnabled="{Binding CanPauseDebugging}" />
-      <Button Content="{Binding Loc[Toolbar.StepOver]}" Command="{Binding StepOverDebuggingCommand}" IsEnabled="{Binding CanStepDebugging}" />
-      <Button Content="{Binding Loc[Toolbar.StepInto]}" Command="{Binding StepIntoDebuggingCommand}" IsEnabled="{Binding CanStepDebugging}" />
-      <Button Content="{Binding Loc[Toolbar.StepOut]}" Command="{Binding StepOutDebuggingCommand}" IsEnabled="{Binding CanStepDebugging}" />
-      <Button Content="{Binding Loc[Toolbar.StopDebugging]}" Command="{Binding StopDebuggingCommand}" IsEnabled="{Binding CanStopDebugging}" />
-      <Separator />
-      <Button Content="{Binding Loc[Toolbar.Completion]}" Command="{Binding RequestCompletionCommand}" ToolTip.Tip="{Binding Loc[Toolbar.Completion.Tooltip]}" />
-      <Button Content="{Binding Loc[Toolbar.Hover]}" Command="{Binding RequestHoverCommand}" ToolTip.Tip="{Binding Loc[Toolbar.Hover.Tooltip]}" />
-      <Button Content="{Binding Loc[Toolbar.GoToDefinition]}" Command="{Binding GoToDefinitionCommand}" />
-      <Button Content="{Binding Loc[Toolbar.RestartLsp]}" Command="{Binding RestartLanguageServerCommand}" IsEnabled="{Binding CanRestartLanguageServer}" />
-      <Separator />
-      <Button Content="{Binding Loc[Toolbar.Test]}" IsEnabled="False" ToolTip.Tip="{Binding Loc[Toolbar.Test.Tooltip]}" />
-    </StackPanel>
-    </ScrollViewer>
+    <!-- Toolbar: two rows so all buttons are always visible regardless of window width -->
+    <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
+      <!-- Row 0: File / Build / Run -->
+      <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="4" Margin="4,4,4,2">
+        <Button Content="{Binding Loc[Toolbar.OpenFolder]}" Command="{Binding OpenFolderCommand}" />
+        <Button Content="{Binding Loc[Toolbar.Save]}" Command="{Binding SaveCommand}" />
+        <Button Content="{Binding Loc[Toolbar.Terminal]}" Command="{Binding OpenTerminalCommand}" />
+        <Separator />
+        <Button Content="{Binding Loc[Toolbar.Build]}" Command="{Binding BuildCommand}" IsEnabled="{Binding !IsBuildRunning}" />
+        <Button Content="{Binding Loc[Toolbar.Cancel]}" Command="{Binding CancelBuildCommand}" IsEnabled="{Binding IsBuildRunning}" />
+        <ComboBox ItemsSource="{Binding AvailableBuildConfigurations}" SelectedItem="{Binding SelectedBuildConfiguration}"
+                  IsEnabled="{Binding !IsBuildRunning}" MinWidth="90">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="wsp:BuildConfiguration">
+              <TextBlock Text="{Binding Name}" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Separator />
+        <ComboBox ItemsSource="{Binding RunConfigurations}" SelectedItem="{Binding SelectedRunConfiguration}"
+                  IsEnabled="{Binding CanRun}" MinWidth="120">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="run:RunConfiguration">
+              <TextBlock Text="{Binding Name}" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Content="{Binding Loc[Toolbar.Run]}" Command="{Binding RunCommand}" IsEnabled="{Binding CanRun}" ToolTip.Tip="{Binding Loc[Toolbar.Run.Tooltip]}" />
+        <Button Content="{Binding Loc[Toolbar.Stop]}" Command="{Binding StopCommand}" IsEnabled="{Binding CanStopOrRestart}" />
+        <Button Content="{Binding Loc[Toolbar.Restart]}" Command="{Binding RestartCommand}" IsEnabled="{Binding CanStopOrRestart}" />
+      </StackPanel>
+      <!-- Row 1: Debug / Language / Test -->
+      <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="4" Margin="4,2,4,4">
+        <Button Content="{Binding Loc[Toolbar.StartDebugging]}" Command="{Binding StartDebuggingCommand}" IsEnabled="{Binding CanStartDebugging}" />
+        <Button Content="{Binding Loc[Toolbar.Continue]}" Command="{Binding ContinueDebuggingCommand}" IsEnabled="{Binding CanContinueDebugging}" />
+        <Button Content="{Binding Loc[Toolbar.Pause]}" Command="{Binding PauseDebuggingCommand}" IsEnabled="{Binding CanPauseDebugging}" />
+        <Button Content="{Binding Loc[Toolbar.StepOver]}" Command="{Binding StepOverDebuggingCommand}" IsEnabled="{Binding CanStepDebugging}" />
+        <Button Content="{Binding Loc[Toolbar.StepInto]}" Command="{Binding StepIntoDebuggingCommand}" IsEnabled="{Binding CanStepDebugging}" />
+        <Button Content="{Binding Loc[Toolbar.StepOut]}" Command="{Binding StepOutDebuggingCommand}" IsEnabled="{Binding CanStepDebugging}" />
+        <Button Content="{Binding Loc[Toolbar.StopDebugging]}" Command="{Binding StopDebuggingCommand}" IsEnabled="{Binding CanStopDebugging}" />
+        <Separator />
+        <Button Content="{Binding Loc[Toolbar.Completion]}" Command="{Binding RequestCompletionCommand}" ToolTip.Tip="{Binding Loc[Toolbar.Completion.Tooltip]}" />
+        <Button Content="{Binding Loc[Toolbar.Hover]}" Command="{Binding RequestHoverCommand}" ToolTip.Tip="{Binding Loc[Toolbar.Hover.Tooltip]}" />
+        <Button Content="{Binding Loc[Toolbar.GoToDefinition]}" Command="{Binding GoToDefinitionCommand}" />
+        <Button Content="{Binding Loc[Toolbar.RestartLsp]}" Command="{Binding RestartLanguageServerCommand}" IsEnabled="{Binding CanRestartLanguageServer}" />
+        <Separator />
+        <Button Content="{Binding Loc[Toolbar.Test]}" IsEnabled="False" ToolTip.Tip="{Binding Loc[Toolbar.Test.Tooltip]}" />
+      </StackPanel>
+    </Grid>
 
     <!-- Main content: Explorer | Editor | Properties, split from a bottom panel -->
-    <Grid Grid.Row="2" RowDefinitions="*,Auto,220">
+    <Grid Grid.Row="2" RowDefinitions="*,6,200">
 
       <Grid Grid.Row="0" ColumnDefinitions="240,Auto,*,Auto,220">
 
@@ -262,10 +265,11 @@
         </Grid>
       </Grid>
 
-      <GridSplitter Grid.Row="1" Height="4" ResizeDirection="Rows" />
+      <GridSplitter Grid.Row="1" ResizeDirection="Rows" HorizontalAlignment="Stretch"
+                    Background="#40808080" Cursor="SizeNorthSouth" />
 
       <!-- Bottom panel: Problems | Output | Terminal | Debug Console | Tests -->
-      <TabControl Grid.Row="2">
+      <TabControl Grid.Row="2" MinHeight="80">
         <TabItem Header="{Binding Loc[Problems.Title]}">
           <Grid RowDefinitions="Auto,*">
             <TextBlock Grid.Row="0" Margin="4" Opacity="0.8" IsVisible="{Binding Problems.HasProblems}">
