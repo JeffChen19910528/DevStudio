@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using DevStudio.Core.Processes;
@@ -31,6 +34,16 @@ public sealed class DotNetRunAdapter : IRunAdapter
         "<OutputType>\\s*([^<]+?)\\s*</OutputType>",
         RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+    private static readonly Regex ProjectTypeGuidsRegex = new(
+        "<ProjectTypeGuids>([^<]+)</ProjectTypeGuids>",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+    private static readonly string[] IisExpressLocations =
+    {
+        @"C:\Program Files\IIS Express\iisexpress.exe",
+        @"C:\Program Files (x86)\IIS Express\iisexpress.exe",
+    };
+
     public DotNetRunAdapter(IProcessRunner processRunner, IToolchainRegistry toolchainRegistry)
     {
         _processRunner = processRunner;
@@ -60,6 +73,13 @@ public sealed class DotNetRunAdapter : IRunAdapter
         if (IsWinExeProject(configuration.Target.FilePath))
         {
             return await StartGuiAppAsync(executable, configuration, workingDirectory, outputSink, cancellationToken).ConfigureAwait(false);
+        }
+
+        // Legacy ASP.NET Web Application projects (old-style .csproj with ProjectTypeGuids) are
+        // not runnable via dotnet run — they need IIS Express.
+        if (IsLegacyWebProject(configuration.Target.FilePath))
+        {
+            return StartIisExpressAsync(configuration, workingDirectory, outputSink);
         }
 
         var arguments = new List<string> { "run", "--project", configuration.Target.FilePath, "-c", configuration.BuildConfiguration.Name, "--no-build" };
@@ -96,6 +116,70 @@ public sealed class DotNetRunAdapter : IRunAdapter
             return match.Success && match.Groups[1].Value.Equals("WinExe", StringComparison.OrdinalIgnoreCase);
         }
         catch { return false; }
+    }
+
+    private static bool IsLegacyWebProject(string projectFilePath)
+    {
+        try
+        {
+            var content = File.ReadAllText(projectFilePath);
+            var match = ProjectTypeGuidsRegex.Match(content);
+            if (!match.Success) return false;
+            var guids = match.Groups[1].Value;
+            return guids.Contains("{349c5851-65df-11da-9384-00065b846f21}", StringComparison.OrdinalIgnoreCase)
+                || guids.Contains("{E24C65DC-7377-472b-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase)
+                || guids.Contains("{E3E379DF-F4C6-4180-9B81-6769533ABE47}", StringComparison.OrdinalIgnoreCase);
+        }
+        catch { return false; }
+    }
+
+    private IRunningApplication StartIisExpressAsync(
+        RunConfiguration configuration, string workingDirectory,
+        IProcessOutputSink? outputSink)
+    {
+        var iisExpress = Array.Find(IisExpressLocations, File.Exists);
+        if (iisExpress is null)
+            throw new InvalidOperationException(
+                "IIS Express is not installed. Install it via the Visual Studio Installer " +
+                "(Individual Components → Web Development Tools → IIS Express) " +
+                "to run legacy ASP.NET Web Application projects.");
+
+        var port = AllocateEphemeralPort();
+        var url = $"http://localhost:{port}";
+
+        var output = new StringBuilder();
+        var sink = new DelegateProcessOutputSink(
+            line => { lock (output) output.AppendLine(line); outputSink?.OnStandardOutput(line); },
+            line => { lock (output) output.AppendLine(line); outputSink?.OnStandardError(line); });
+
+        var request = new ProcessStartRequest(
+            iisExpress,
+            new[] { $"/path:{workingDirectory}", $"/port:{port}" },
+            workingDirectory,
+            OutputEncoding: Encoding.UTF8);
+
+        outputSink?.OnStandardOutput($"Starting IIS Express on {url} ...");
+        var startedAt = DateTimeOffset.UtcNow;
+        var process = _processRunner.Start(request, sink);
+
+        _ = OpenBrowserAfterDelayAsync(url);
+
+        return new DotNetRunningApplication(process, configuration, startedAt, output);
+    }
+
+    private static int AllocateEphemeralPort()
+    {
+        var listener = new TcpListener(IPAddress.Loopback, 0);
+        listener.Start();
+        try { return ((IPEndPoint)listener.LocalEndpoint).Port; }
+        finally { listener.Stop(); }
+    }
+
+    private static async Task OpenBrowserAfterDelayAsync(string url)
+    {
+        await Task.Delay(1500).ConfigureAwait(false);
+        try { Process.Start(new ProcessStartInfo(url) { UseShellExecute = true }); }
+        catch { }
     }
 
     private async Task<IRunningApplication> StartGuiAppAsync(

@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DevStudio.Core.Build;
@@ -341,42 +342,47 @@ public partial class MainWindowViewModel : ObservableObject
             .Select(culture => new LanguageOption(culture.Name, culture.Name == "zh-TW" ? "繁體中文" : "English"))
             .ToList();
 
-        _runService.StatusChanged += (_, status) => RunStatus = status;
+        _runService.StatusChanged += (_, status) =>
+            Dispatcher.UIThread.Post(() => RunStatus = status);
         _runService.Completed += (_, result) =>
-        {
-            LastRunResult = result;
-            Output.Log("Run", DescribeRunResult(result), result.Status == RunStatus.FailedToStart ? OutputEntrySeverity.Error : OutputEntrySeverity.Info);
-        };
+            Dispatcher.UIThread.Post(() =>
+            {
+                LastRunResult = result;
+                Output.Log("Run", DescribeRunResult(result), result.Status == RunStatus.FailedToStart ? OutputEntrySeverity.Error : OutputEntrySeverity.Info);
+            });
 
-        _debugService.StateChanged += (_, state) => DebugState = state;
+        _debugService.StateChanged += (_, state) =>
+            Dispatcher.UIThread.Post(() => DebugState = state);
         _debugService.Stopped += (_, info) =>
-        {
-            Output.Log("Debug", $"Stopped: {info.Reason}" + (info.Description is { } description ? $" — {description}" : string.Empty));
-            _ = RefreshThreadsAndStackAsync();
-        };
-        _debugService.Continued += (_, _) => Output.Log("Debug", "Continuing...");
+            Dispatcher.UIThread.Post(() =>
+            {
+                Output.Log("Debug", $"Stopped: {info.Reason}" + (info.Description is { } description ? $" — {description}" : string.Empty));
+                _ = RefreshThreadsAndStackAsync();
+            });
+        _debugService.Continued += (_, _) =>
+            Dispatcher.UIThread.Post(() => Output.Log("Debug", "Continuing..."));
         _debugService.OutputReceived += (_, entry) =>
-            Output.Log("Debug", entry.Text, string.Equals(entry.Category, "stderr", StringComparison.OrdinalIgnoreCase) ? OutputEntrySeverity.Warning : OutputEntrySeverity.Info);
+            Dispatcher.UIThread.Post(() =>
+                Output.Log("Debug", entry.Text, string.Equals(entry.Category, "stderr", StringComparison.OrdinalIgnoreCase) ? OutputEntrySeverity.Warning : OutputEntrySeverity.Info));
         _debugService.Completed += (_, result) =>
-        {
-            LastDebugResult = result;
-            Output.Log("Debug", DescribeDebugResult(result), result.State == DebugSessionState.Failed ? OutputEntrySeverity.Error : OutputEntrySeverity.Info);
-            DebugThreads.Clear();
-            CallStackFrames.Clear();
-            DebugScopes.Clear();
-            DebugVariables.Clear();
-            SelectedStackFrame = null;
-            SelectedScope = null;
-        };
+            Dispatcher.UIThread.Post(() =>
+            {
+                LastDebugResult = result;
+                Output.Log("Debug", DescribeDebugResult(result), result.State == DebugSessionState.Failed ? OutputEntrySeverity.Error : OutputEntrySeverity.Info);
+                DebugThreads.Clear();
+                CallStackFrames.Clear();
+                DebugScopes.Clear();
+                DebugVariables.Clear();
+                SelectedStackFrame = null;
+                SelectedScope = null;
+            });
 
-        // Not marshaled to the UI thread: matches the existing, established pattern for
-        // RunService/DebugService's own event handlers above, which update UI-bound state
-        // directly from whatever thread raises the event.
         _languageService.StateChanged += (_, state) =>
-        {
-            LanguageServerState = state;
-            if (state == LanguageServerState.Failed) LastLanguageServerFailure = _languageService.LastFailureMessage;
-        };
+            Dispatcher.UIThread.Post(() =>
+            {
+                LanguageServerState = state;
+                if (state == LanguageServerState.Failed) LastLanguageServerFailure = _languageService.LastFailureMessage;
+            });
         _languageService.DiagnosticsPublished += (_, args) => Problems.ReplaceLanguageDiagnostics(args.FilePath, args.Diagnostics);
 
         _testService.StateChanged += (_, state) => TestRunState = state;

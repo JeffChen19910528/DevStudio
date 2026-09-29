@@ -44,9 +44,12 @@ public partial class MainWindow : Window
         vm.Output.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName != nameof(OutputPanelViewModel.OutputText)) return;
-            var textBox = this.FindControl<TextBox>("OutputTextBox");
-            if (textBox is not null)
-                textBox.CaretIndex = textBox.Text?.Length ?? 0;
+            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            {
+                var textBox = this.FindControl<TextBox>("OutputTextBox");
+                if (textBox is not null)
+                    textBox.CaretIndex = textBox.Text?.Length ?? 0;
+            });
         };
     }
 
