@@ -174,12 +174,21 @@ public partial class MainWindow : Window
         }
     }
 
-    private void OnSetAsStartupProjectClicked(object? sender, RoutedEventArgs e)
+    private void OnExplorerContextRequested(object? sender, ContextRequestedEventArgs e)
     {
-        if (sender is MenuItem { DataContext: FileTreeNodeViewModel node } && ViewModel is { } vm)
-        {
-            vm.SetStartupProject(node);
-        }
+        if (ViewModel is not { } vm) return;
+
+        if (e.Source is not Control { DataContext: FileTreeNodeViewModel node } sourceControl
+            || !node.IsDirectory)
+            return;
+
+        var item = new MenuItem { Header = vm.Loc["Explorer.SetAsStartupProject"] };
+        item.Click += (_, _) => vm.SetStartupProject(node);
+
+        var menu = new ContextMenu();
+        menu.Items.Add(item);
+        menu.Open(sourceControl);
+        e.Handled = true;
     }
 
     private void OnDocumentTabSelectionChanged(object? sender, SelectionChangedEventArgs e)

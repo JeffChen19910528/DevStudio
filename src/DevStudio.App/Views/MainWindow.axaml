@@ -105,7 +105,8 @@
     </Menu>
 
     <!-- Toolbar -->
-    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="4" Margin="4">
+    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+    <StackPanel Orientation="Horizontal" Spacing="4" Margin="4">
       <Button Content="{Binding Loc[Toolbar.OpenFolder]}" Command="{Binding OpenFolderCommand}" />
       <Button Content="{Binding Loc[Toolbar.Save]}" Command="{Binding SaveCommand}" />
       <Button Content="{Binding Loc[Toolbar.Terminal]}" Command="{Binding OpenTerminalCommand}" />
@@ -148,6 +149,7 @@
       <Separator />
       <Button Content="{Binding Loc[Toolbar.Test]}" IsEnabled="False" ToolTip.Tip="{Binding Loc[Toolbar.Test.Tooltip]}" />
     </StackPanel>
+    </ScrollViewer>
 
     <!-- Main content: Explorer | Editor | Properties, split from a bottom panel -->
     <Grid Grid.Row="2" RowDefinitions="*,Auto,220">
@@ -159,7 +161,8 @@
           <TextBlock Grid.Row="0" Text="{Binding Loc[Explorer.Title]}" FontWeight="Bold" Margin="4" />
           <TreeView Grid.Row="1" ItemsSource="{Binding Explorer.RootNodes}"
                     SelectedItem="{Binding Explorer.SelectedNode}"
-                    DoubleTapped="OnExplorerDoubleTapped">
+                    DoubleTapped="OnExplorerDoubleTapped"
+                    ContextRequested="OnExplorerContextRequested">
             <TreeView.Styles>
               <Style Selector="TreeViewItem" x:DataType="vm:FileTreeNodeViewModel">
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
@@ -167,15 +170,7 @@
             </TreeView.Styles>
             <TreeView.ItemTemplate>
               <TreeDataTemplate x:DataType="vm:FileTreeNodeViewModel" ItemsSource="{Binding Children}">
-                <TextBlock Text="{Binding DisplayLabel}" ToolTip.Tip="{Binding Project.DetectionWarning}">
-                  <TextBlock.ContextMenu>
-                    <ContextMenu>
-                      <MenuItem Header="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Loc[Explorer.SetAsStartupProject]}"
-                                IsVisible="{Binding IsDirectory}"
-                                Click="OnSetAsStartupProjectClicked" />
-                    </ContextMenu>
-                  </TextBlock.ContextMenu>
-                </TextBlock>
+                <TextBlock Text="{Binding DisplayLabel}" ToolTip.Tip="{Binding Project.DetectionWarning}" />
               </TreeDataTemplate>
             </TreeView.ItemTemplate>
           </TreeView>
