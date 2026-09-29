@@ -33,9 +33,21 @@ public partial class MainWindow : Window
             if (ViewModel is { } vm)
             {
                 vm.CaretMoveRequested += OnCaretMoveRequested;
+                SubscribeOutputAutoScroll(vm);
             }
         };
         Closing += OnClosing;
+    }
+
+    private void SubscribeOutputAutoScroll(MainWindowViewModel vm)
+    {
+        vm.Output.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName != nameof(OutputPanelViewModel.OutputText)) return;
+            var textBox = this.FindControl<TextBox>("OutputTextBox");
+            if (textBox is not null)
+                textBox.CaretIndex = textBox.Text?.Length ?? 0;
+        };
     }
 
     private bool _closeConfirmed;
@@ -159,6 +171,14 @@ public partial class MainWindow : Window
         if (sender is TreeView { SelectedItem: FileTreeNodeViewModel node } && ViewModel is { } vm)
         {
             vm.Explorer.ActivateFile(node);
+        }
+    }
+
+    private void OnSetAsStartupProjectClicked(object? sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem { DataContext: FileTreeNodeViewModel node } && ViewModel is { } vm)
+        {
+            vm.SetStartupProject(node);
         }
     }
 

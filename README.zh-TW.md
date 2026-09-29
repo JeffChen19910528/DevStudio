@@ -77,7 +77,8 @@ chmod +x scripts/publish.sh   # 第一次執行時才需要
 3. **建置**——在工具列選擇組態（Debug/Release）後點擊 Build，或使用 Build 選單。錯誤與警告會
    顯示在 Problems 面板中，點擊項目可跳至對應的原始碼位置。
 4. **執行**——在工具列的下拉選單選擇要執行的目標後點擊 Run。輸出會顯示在 Output 面板中，可用
-   Stop/Restart 控制執行中的程序。
+   Stop/Restart 控制執行中的程序。若要將某個專案設為啟動目標（包含未被自動偵測為可執行的專案，
+   例如舊式 ASP.NET Web 專案），可在檔案總管中對該專案按右鍵，選擇**設為啟動專案**。
 5. **偵錯**——用「Debug → Toggle Breakpoint at Line」設定中斷點，再點擊 Start Debugging。程式
    停在中斷點時，可使用 Call Stack、Threads、Locals、Breakpoints 面板檢視狀態。
 6. **取得程式碼輔助**——在 `.cs` 檔案中輸入時，可使用 Completion / Hover 按鈕或 Go To

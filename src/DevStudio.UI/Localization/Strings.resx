@@ -293,6 +293,9 @@
   <data name="Explorer.Title" xml:space="preserve">
     <value>Explorer</value>
   </data>
+  <data name="Explorer.SetAsStartupProject" xml:space="preserve">
+    <value>Set as Startup Project</value>
+  </data>
   <data name="Editor.Find" xml:space="preserve">
     <value>Find:</value>
   </data>

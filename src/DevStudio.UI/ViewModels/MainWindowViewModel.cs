@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DevStudio.Core.Build;
@@ -561,6 +562,54 @@ public partial class MainWindowViewModel : ObservableObject
         }
 
         SelectedRunConfiguration = RunConfigurations.FirstOrDefault(c => c.Name == previouslySelectedName) ?? RunConfigurations.FirstOrDefault();
+    }
+
+    /// <summary>Manually pins a project (or folder) as the active startup target — bypasses
+    /// <see cref="DiscoverRunConfigurations"/> so users can select projects that weren't
+    /// auto-detected as runnable (e.g. legacy ASP.NET, class libraries, folders without a
+    /// recognised project file). If the node has a detected <see cref="ProjectInfo"/>, that is
+    /// used directly; otherwise the directory is probed for a .csproj/.fsproj/.vbproj.</summary>
+    public void SetStartupProject(FileTreeNodeViewModel node)
+    {
+        string name;
+        string workingDirectory;
+        string filePath;
+        ProjectType projectType;
+
+        if (node.Project is { } project)
+        {
+            name = project.Name;
+            workingDirectory = project.RootPath;
+            filePath = project.ProjectFile ?? project.RootPath;
+            projectType = project.ProjectType;
+        }
+        else if (node.IsDirectory)
+        {
+            name = node.Name;
+            workingDirectory = node.FullPath;
+            var found = Directory.EnumerateFiles(node.FullPath, "*.csproj", SearchOption.TopDirectoryOnly)
+                .Concat(Directory.EnumerateFiles(node.FullPath, "*.fsproj", SearchOption.TopDirectoryOnly))
+                .Concat(Directory.EnumerateFiles(node.FullPath, "*.vbproj", SearchOption.TopDirectoryOnly))
+                .FirstOrDefault();
+            filePath = found ?? node.FullPath;
+            projectType = ProjectType.DotNet;
+        }
+        else
+        {
+            return;
+        }
+
+        var existing = RunConfigurations.FirstOrDefault(c => c.Name == name);
+        if (existing is not null)
+        {
+            SelectedRunConfiguration = existing;
+            return;
+        }
+
+        var target = new BuildTarget(BuildTargetKind.Project, name, filePath, workingDirectory, projectType);
+        var config = new RunConfiguration(name, target, SelectedBuildConfiguration);
+        RunConfigurations.Add(config);
+        SelectedRunConfiguration = config;
     }
 
     [RelayCommand]

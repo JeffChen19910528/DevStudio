@@ -86,7 +86,9 @@ step, no terminal required after that.
    Build menu. Errors and warnings appear in the Problems panel; click one to jump to its source
    line.
 4. **Run** — pick a run target from the toolbar dropdown and click Run. Output appears in the
-   Output panel; use Stop/Restart to control the running process.
+   Output panel; use Stop/Restart to control the running process. To set a project as the active
+   startup target (including projects not auto-detected as runnable, such as legacy ASP.NET web
+   projects), right-click the project in the Explorer and choose **Set as Startup Project**.
 5. **Debug** — set breakpoints with Debug → Toggle Breakpoint at Line, then click Start Debugging.
    Use the Call Stack, Threads, Locals, and Breakpoints panels while stopped at a breakpoint.
 6. **Get code help** — as you type in a `.cs` file, use the Completion/Hover buttons or Go To

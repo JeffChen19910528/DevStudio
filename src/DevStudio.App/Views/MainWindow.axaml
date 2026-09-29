@@ -167,7 +167,15 @@
             </TreeView.Styles>
             <TreeView.ItemTemplate>
               <TreeDataTemplate x:DataType="vm:FileTreeNodeViewModel" ItemsSource="{Binding Children}">
-                <TextBlock Text="{Binding DisplayLabel}" ToolTip.Tip="{Binding Project.DetectionWarning}" />
+                <TextBlock Text="{Binding DisplayLabel}" ToolTip.Tip="{Binding Project.DetectionWarning}">
+                  <TextBlock.ContextMenu>
+                    <ContextMenu>
+                      <MenuItem Header="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Loc[Explorer.SetAsStartupProject]}"
+                                IsVisible="{Binding IsDirectory}"
+                                Click="OnSetAsStartupProjectClicked" />
+                    </ContextMenu>
+                  </TextBlock.ContextMenu>
+                </TextBlock>
               </TreeDataTemplate>
             </TreeView.ItemTemplate>
           </TreeView>
@@ -299,19 +307,16 @@
         </TabItem>
 
         <TabItem Header="{Binding Loc[Output.Title]}">
-          <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding Output.Entries}">
-              <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="vm:OutputEntry">
-                  <TextBlock Margin="4,1">
-                    <Run Text="{Binding TimestampLabel}" Foreground="Gray" />
-                    <Run Text=" [" /><Run Text="{Binding Source}" /><Run Text="] " />
-                    <Run Text="{Binding Message}" />
-                  </TextBlock>
-                </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
-          </ScrollViewer>
+          <TextBox x:Name="OutputTextBox"
+                   IsReadOnly="True"
+                   Text="{Binding Output.OutputText, Mode=OneWay}"
+                   FontFamily="Consolas,Cascadia Mono,monospace"
+                   AcceptsReturn="True"
+                   TextWrapping="NoWrap"
+                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                   ScrollViewer.VerticalScrollBarVisibility="Auto"
+                   Padding="4"
+                   BorderThickness="0" />
         </TabItem>
 
         <TabItem Header="{Binding Loc[Terminal.Title]}">
@@ -334,7 +339,7 @@
                       <ItemsControl ItemsSource="{Binding OutputLines}">
                         <ItemsControl.ItemTemplate>
                           <DataTemplate x:DataType="x:String">
-                            <TextBlock Text="{Binding}" FontFamily="Consolas,Cascadia Mono,monospace" />
+                            <SelectableTextBlock Text="{Binding}" FontFamily="Consolas,Cascadia Mono,monospace" />
                           </DataTemplate>
                         </ItemsControl.ItemTemplate>
                       </ItemsControl>
@@ -369,10 +374,10 @@
                     <DataTemplate x:DataType="tc:ToolchainInfo">
                       <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="2">
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                          <TextBlock Text="{Binding Name}" FontWeight="Bold" Width="100" />
-                          <TextBlock Text="{Binding State}" Width="140" />
-                          <TextBlock Text="{Binding Version}" Width="160" />
-                          <TextBlock Text="{Binding ExecutablePath}" Opacity="0.7" />
+                          <SelectableTextBlock Text="{Binding Name}" FontWeight="Bold" Width="100" />
+                          <SelectableTextBlock Text="{Binding State}" Width="140" />
+                          <SelectableTextBlock Text="{Binding Version}" Width="160" />
+                          <SelectableTextBlock Text="{Binding ExecutablePath}" Opacity="0.7" />
                         </StackPanel>
                       </Border>
                     </DataTemplate>
@@ -386,35 +391,35 @@
                     <DataTemplate x:DataType="tc:VisualStudioInstance">
                       <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="2">
                         <StackPanel Spacing="1">
-                          <TextBlock Text="{Binding DisplayName}" FontWeight="Bold" />
-                          <TextBlock>
+                          <SelectableTextBlock Text="{Binding DisplayName}" FontWeight="Bold" />
+                          <SelectableTextBlock>
                             <Run Text="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Loc[Toolchains.Edition]}" /><Run Text="{Binding Edition}" />
                             <Run Text="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).Loc[Toolchains.Version]}" /><Run Text="{Binding Version}" />
-                          </TextBlock>
-                          <TextBlock TextWrapping="Wrap">
-                            <TextBlock.Text>
+                          </SelectableTextBlock>
+                          <SelectableTextBlock TextWrapping="Wrap">
+                            <SelectableTextBlock.Text>
                               <MultiBinding Converter="{x:Static loc:LocFormatConverter.Instance}">
                                 <Binding Path="$parent[Window].((vm:MainWindowViewModel)DataContext).Loc[Toolchains.Installation]" />
                                 <Binding Path="InstallationPath" />
                               </MultiBinding>
-                            </TextBlock.Text>
-                          </TextBlock>
-                          <TextBlock TextWrapping="Wrap">
-                            <TextBlock.Text>
+                            </SelectableTextBlock.Text>
+                          </SelectableTextBlock>
+                          <SelectableTextBlock TextWrapping="Wrap">
+                            <SelectableTextBlock.Text>
                               <MultiBinding Converter="{x:Static loc:LocFormatConverter.Instance}">
                                 <Binding Path="$parent[Window].((vm:MainWindowViewModel)DataContext).Loc[Toolchains.MsBuild]" />
                                 <Binding Path="MsBuildPath" />
                               </MultiBinding>
-                            </TextBlock.Text>
-                          </TextBlock>
-                          <TextBlock TextWrapping="Wrap">
-                            <TextBlock.Text>
+                            </SelectableTextBlock.Text>
+                          </SelectableTextBlock>
+                          <SelectableTextBlock TextWrapping="Wrap">
+                            <SelectableTextBlock.Text>
                               <MultiBinding Converter="{x:Static loc:LocFormatConverter.Instance}">
                                 <Binding Path="$parent[Window].((vm:MainWindowViewModel)DataContext).Loc[Toolchains.Msvc]" />
                                 <Binding Path="MsvcToolsetPath" />
                               </MultiBinding>
-                            </TextBlock.Text>
-                          </TextBlock>
+                            </SelectableTextBlock.Text>
+                          </SelectableTextBlock>
                         </StackPanel>
                       </Border>
                     </DataTemplate>
@@ -438,11 +443,11 @@
             <ListBox Grid.Row="1" ItemsSource="{Binding CallStackFrames}" SelectedItem="{Binding SelectedStackFrame}">
               <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="dbg:StackFrameInfo">
-                  <TextBlock TextWrapping="Wrap">
+                  <SelectableTextBlock TextWrapping="Wrap">
                     <Run Text="{Binding Name}" FontWeight="Bold" /><Run Text="  " />
                     <Run Text="{Binding SourcePath}" Foreground="Gray" /><Run Text=":" />
                     <Run Text="{Binding Line}" />
-                  </TextBlock>
+                  </SelectableTextBlock>
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
@@ -453,9 +458,9 @@
           <ListBox ItemsSource="{Binding DebugThreads}">
             <ListBox.ItemTemplate>
               <DataTemplate x:DataType="dbg:ThreadInfo">
-                <TextBlock>
+                <SelectableTextBlock>
                   <Run Text="{Binding Id}" /><Run Text=": " /><Run Text="{Binding Name}" />
-                </TextBlock>
+                </SelectableTextBlock>
               </DataTemplate>
             </ListBox.ItemTemplate>
           </ListBox>
@@ -466,17 +471,17 @@
             <ListBox Grid.Column="0" ItemsSource="{Binding DebugScopes}" SelectedItem="{Binding SelectedScope}">
               <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="dbg:Scope">
-                  <TextBlock Text="{Binding Name}" />
+                  <SelectableTextBlock Text="{Binding Name}" />
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
             <ListBox Grid.Column="1" ItemsSource="{Binding DebugVariables}">
               <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="dbg:Variable">
-                  <TextBlock TextWrapping="Wrap">
+                  <SelectableTextBlock TextWrapping="Wrap">
                     <Run Text="{Binding Name}" FontWeight="Bold" /><Run Text=" = " />
                     <Run Text="{Binding Value}" /><Run Text="  (" /><Run Text="{Binding Type}" /><Run Text=")" />
-                  </TextBlock>
+                  </SelectableTextBlock>
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
@@ -487,10 +492,10 @@
           <ListBox ItemsSource="{Binding Breakpoints}">
             <ListBox.ItemTemplate>
               <DataTemplate x:DataType="dbg:Breakpoint">
-                <TextBlock TextWrapping="Wrap">
+                <SelectableTextBlock TextWrapping="Wrap">
                   <Run Text="{Binding SourcePath}" /><Run Text=":" /><Run Text="{Binding Line}" />
                   <Run Text="  (" /><Run Text="{Binding Enabled}" /><Run Text=")" />
-                </TextBlock>
+                </SelectableTextBlock>
               </DataTemplate>
             </ListBox.ItemTemplate>
           </ListBox>
@@ -511,7 +516,7 @@
         </TabItem>
 
         <TabItem Header="{Binding Loc[Hover.Title]}">
-          <TextBlock Text="{Binding HoverResult.Content}" TextWrapping="Wrap" Margin="8" />
+          <SelectableTextBlock Text="{Binding HoverResult.Content}" TextWrapping="Wrap" Margin="8" />
         </TabItem>
 
         <TabItem Header="{Binding Loc[TestExplorer.Title]}">
@@ -534,11 +539,11 @@
                      DoubleTapped="OnTestNodeDoubleTapped">
               <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="vm:TestNodeViewModel">
-                  <TextBlock TextWrapping="Wrap">
+                  <SelectableTextBlock TextWrapping="Wrap">
                     <Run Text="{Binding Outcome}" FontWeight="Bold" /><Run Text="  " />
                     <Run Text="{Binding TestCase.DisplayName}" /><Run Text="  " />
                     <Run Text="{Binding Duration}" Foreground="Gray" />
-                  </TextBlock>
+                  </SelectableTextBlock>
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
@@ -605,13 +610,13 @@
                         <ItemsControl.ItemTemplate>
                           <DataTemplate x:DataType="git:GitDiffHunk">
                             <StackPanel Margin="4,4,4,8">
-                              <TextBlock Text="{Binding Header}" FontFamily="Consolas,Cascadia Mono,monospace" Foreground="Gray" />
+                              <SelectableTextBlock Text="{Binding Header}" FontFamily="Consolas,Cascadia Mono,monospace" Foreground="Gray" />
                               <ItemsControl ItemsSource="{Binding Lines}">
                                 <ItemsControl.ItemTemplate>
                                   <DataTemplate x:DataType="git:GitDiffLine">
-                                    <TextBlock FontFamily="Consolas,Cascadia Mono,monospace" TextWrapping="Wrap">
+                                    <SelectableTextBlock FontFamily="Consolas,Cascadia Mono,monospace" TextWrapping="Wrap">
                                       <Run Text="{Binding Kind}" Foreground="Gray" /><Run Text=" " /><Run Text="{Binding Content}" />
-                                    </TextBlock>
+                                    </SelectableTextBlock>
                                   </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                               </ItemsControl>
@@ -650,19 +655,19 @@
                   <ListBox Grid.Column="0" ItemsSource="{Binding SourceControl.CommitHistory}" SelectedItem="{Binding SourceControl.SelectedCommit}">
                     <ListBox.ItemTemplate>
                       <DataTemplate x:DataType="git:GitCommit">
-                        <TextBlock TextWrapping="Wrap">
+                        <SelectableTextBlock TextWrapping="Wrap">
                           <Run Text="{Binding ShortSha}" FontWeight="Bold" /><Run Text="  " />
                           <Run Text="{Binding Subject}" /><Run Text="  " />
                           <Run Text="{Binding AuthorName}" Foreground="Gray" />
-                        </TextBlock>
+                        </SelectableTextBlock>
                       </DataTemplate>
                     </ListBox.ItemTemplate>
                   </ListBox>
                   <StackPanel Grid.Column="1" Margin="8" Spacing="4">
-                    <TextBlock Text="{Binding SourceControl.SelectedCommit.Sha}" TextWrapping="Wrap" FontFamily="Consolas,Cascadia Mono,monospace" />
-                    <TextBlock Text="{Binding SourceControl.SelectedCommit.AuthorName}" FontWeight="Bold" />
-                    <TextBlock Text="{Binding SourceControl.SelectedCommit.AuthorDate}" Opacity="0.7" />
-                    <TextBlock Text="{Binding SourceControl.SelectedCommit.Subject}" TextWrapping="Wrap" Margin="0,8,0,0" />
+                    <SelectableTextBlock Text="{Binding SourceControl.SelectedCommit.Sha}" TextWrapping="Wrap" FontFamily="Consolas,Cascadia Mono,monospace" />
+                    <SelectableTextBlock Text="{Binding SourceControl.SelectedCommit.AuthorName}" FontWeight="Bold" />
+                    <SelectableTextBlock Text="{Binding SourceControl.SelectedCommit.AuthorDate}" Opacity="0.7" />
+                    <SelectableTextBlock Text="{Binding SourceControl.SelectedCommit.Subject}" TextWrapping="Wrap" Margin="0,8,0,0" />
                   </StackPanel>
                 </Grid>
               </TabItem>

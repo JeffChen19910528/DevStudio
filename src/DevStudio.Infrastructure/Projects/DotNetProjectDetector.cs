@@ -20,6 +20,7 @@ public sealed class DotNetProjectDetector : IProjectDetector
 
     private static readonly Regex SdkAttributeRegex = new("Sdk\\s*=\\s*\"([^\"]+)\"", RegexOptions.Compiled);
     private static readonly Regex OutputTypeRegex = new("<OutputType>\\s*([^<]+?)\\s*</OutputType>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex ProjectTypeGuidsRegex = new("<ProjectTypeGuids>([^<]+)</ProjectTypeGuids>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     /// <summary>Real, conservative test-SDK/framework evidence (SKILL.md §11 [Phase 8]) — a
     /// <c>PackageReference Include="..."</c> for the real .NET test SDK or a real test
@@ -60,8 +61,10 @@ public sealed class DotNetProjectDetector : IProjectDetector
     /// [Phase 5]): an explicit <c>&lt;OutputType&gt;</c> of <c>Exe</c>/<c>WinExe</c> means
     /// runnable; <c>Library</c> (or omitted, which is the SDK default) means not. A project
     /// using the <c>Microsoft.NET.Sdk.Web</c> SDK is runnable by convention even without an
-    /// explicit <c>OutputType</c> — the Web SDK sets one internally. Unreadable/unparsable
-    /// content defaults to not-runnable rather than guessing.
+    /// explicit <c>OutputType</c> — the Web SDK sets one internally. Legacy ASP.NET projects
+    /// (non-SDK format) are identified by <c>&lt;ProjectTypeGuids&gt;</c> containing known web
+    /// GUIDs and are also treated as runnable. Unreadable/unparsable content defaults to
+    /// not-runnable rather than guessing.
     /// </summary>
     private static bool DetermineIsExecutable(string? content)
     {
@@ -71,10 +74,27 @@ public sealed class DotNetProjectDetector : IProjectDetector
         if (outputTypeMatch.Success)
         {
             var value = outputTypeMatch.Groups[1].Value;
-            return value.Equals("Exe", StringComparison.OrdinalIgnoreCase) || value.Equals("WinExe", StringComparison.OrdinalIgnoreCase);
+            if (value.Equals("Exe", StringComparison.OrdinalIgnoreCase) ||
+                value.Equals("WinExe", StringComparison.OrdinalIgnoreCase))
+                return true;
         }
 
         var sdkMatch = SdkAttributeRegex.Match(content);
-        return sdkMatch.Success && sdkMatch.Groups[1].Value.Contains("Web", StringComparison.OrdinalIgnoreCase);
+        if (sdkMatch.Success && sdkMatch.Groups[1].Value.Contains("Web", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        // Legacy ASP.NET Web Application / MVC projects use ProjectTypeGuids instead of Sdk.
+        // {349c5851-...} = ASP.NET MVC, {E24C65DC-...} = ASP.NET Web Application (Web Forms).
+        var guidsMatch = ProjectTypeGuidsRegex.Match(content);
+        if (guidsMatch.Success)
+        {
+            var guids = guidsMatch.Groups[1].Value;
+            if (guids.Contains("{349c5851-65df-11da-9384-00065b846f21}", StringComparison.OrdinalIgnoreCase) ||
+                guids.Contains("{E24C65DC-7377-472b-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) ||
+                guids.Contains("{E3E379DF-F4C6-4180-9B81-6769533ABE47}", StringComparison.OrdinalIgnoreCase))
+                return true;
+        }
+
+        return false;
     }
 }
