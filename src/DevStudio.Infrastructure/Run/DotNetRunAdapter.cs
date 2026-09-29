@@ -122,11 +122,21 @@ public sealed class DotNetRunAdapter : IRunAdapter
         catch { return false; }
     }
 
-    private static bool IsLegacyWebProject(string projectFilePath)
+    private static bool IsLegacyWebProject(string path)
     {
         try
         {
-            var content = File.ReadAllText(projectFilePath);
+            // Web Site projects have no .csproj — detect by directory markers instead.
+            if (Directory.Exists(path))
+            {
+                if (Directory.EnumerateFiles(path, "*.publishproj", SearchOption.TopDirectoryOnly).Any())
+                    return true;
+                if (File.Exists(Path.Combine(path, "Web.config")))
+                    return true;
+                var csproj = Directory.EnumerateFiles(path, "*.csproj", SearchOption.TopDirectoryOnly).FirstOrDefault();
+                return csproj is not null && IsLegacyWebProject(csproj);
+            }
+            var content = File.ReadAllText(path);
             var match = ProjectTypeGuidsRegex.Match(content);
             if (!match.Success) return false;
             var guids = match.Groups[1].Value;
