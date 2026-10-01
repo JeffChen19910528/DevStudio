@@ -115,7 +115,19 @@
         <Button Content="{Binding Loc[Toolbar.Build]}" Command="{Binding BuildCommand}" IsEnabled="{Binding !IsBuildRunning}" />
         <Button Content="{Binding Loc[Toolbar.Cancel]}" Command="{Binding CancelBuildCommand}" IsEnabled="{Binding IsBuildRunning}" />
         <ComboBox ItemsSource="{Binding AvailableBuildConfigurations}" SelectedItem="{Binding SelectedBuildConfiguration}"
-                  IsEnabled="{Binding !IsBuildRunning}" MinWidth="90">
+                  IsEnabled="{Binding !IsBuildRunning}" MinWidth="90"
+                  ToolTip.Tip="{Binding Loc[Toolbar.Build]}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="wsp:BuildConfiguration">
+              <TextBlock Text="{Binding Name}" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="{Binding Loc[Toolbar.DepsConfig.Label]}" VerticalAlignment="Center"
+                   ToolTip.Tip="{Binding Loc[Toolbar.DepsConfig.Tooltip]}" />
+        <ComboBox ItemsSource="{Binding AvailableBuildConfigurations}" SelectedItem="{Binding SelectedDependencyBuildConfiguration}"
+                  IsEnabled="{Binding !IsBuildRunning}" MinWidth="90"
+                  ToolTip.Tip="{Binding Loc[Toolbar.DepsConfig.Tooltip]}">
           <ComboBox.ItemTemplate>
             <DataTemplate x:DataType="wsp:BuildConfiguration">
               <TextBlock Text="{Binding Name}" />

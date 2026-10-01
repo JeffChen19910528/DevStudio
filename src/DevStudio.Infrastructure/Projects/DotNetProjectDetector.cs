@@ -29,6 +29,10 @@ public sealed class DotNetProjectDetector : IProjectDetector
         "PackageReference\\s+Include\\s*=\\s*\"(Microsoft\\.NET\\.Test\\.Sdk|xunit(\\.core)?|xunit\\.v3|NUnit3?TestAdapter|NUnit|MSTest\\.TestAdapter|MSTest\\.TestFramework|MSTest)\"",
         RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+    private static readonly Regex ProjectReferenceRegex = new(
+        "<ProjectReference\\s+Include\\s*=\\s*\"([^\"]+)\"",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
     public async Task<ProjectDetectionResult?> DetectAsync(string directoryPath, IReadOnlyList<string> fileNamesInDirectory, CancellationToken cancellationToken = default)
     {
         var projectFile = fileNamesInDirectory.FirstOrDefault(f => LanguageByExtension.ContainsKey(Path.GetExtension(f)));
@@ -40,6 +44,7 @@ public sealed class DotNetProjectDetector : IProjectDetector
         var content = await ConfigFileReading.TryReadHeadAsync(projectFilePath, cancellationToken).ConfigureAwait(false);
         var isExecutable = DetermineIsExecutable(content);
         var isTestProject = content is not null && TestPackageReferenceRegex.IsMatch(content);
+        var projectReferencePaths = ParseProjectReferencePaths(content, directoryPath);
 
         var project = new ProjectInfo(
             Id: Guid.NewGuid().ToString("N"),
@@ -51,7 +56,8 @@ public sealed class DotNetProjectDetector : IProjectDetector
             ConfigurationFiles: new[] { projectFilePath },
             Capabilities: Array.Empty<ProjectCapability>(),
             IsExecutable: isExecutable,
-            IsTestProject: isTestProject);
+            IsTestProject: isTestProject,
+            ProjectReferenceFilePaths: projectReferencePaths);
 
         return new ProjectDetectionResult(project, Solution: null);
     }
@@ -66,6 +72,26 @@ public sealed class DotNetProjectDetector : IProjectDetector
     /// GUIDs and are also treated as runnable. Unreadable/unparsable content defaults to
     /// not-runnable rather than guessing.
     /// </summary>
+    private static IReadOnlyList<string> ParseProjectReferencePaths(string? content, string projectDirectory)
+    {
+        if (content is null) return Array.Empty<string>();
+
+        var paths = new List<string>();
+        foreach (Match match in ProjectReferenceRegex.Matches(content))
+        {
+            var rawPath = match.Groups[1].Value.Replace('\\', Path.DirectorySeparatorChar);
+            try
+            {
+                paths.Add(Path.GetFullPath(Path.Combine(projectDirectory, rawPath)));
+            }
+            catch (Exception)
+            {
+                // Malformed path in project file — skip silently; detection stays conservative.
+            }
+        }
+        return paths;
+    }
+
     private static bool DetermineIsExecutable(string? content)
     {
         if (content is null) return false;

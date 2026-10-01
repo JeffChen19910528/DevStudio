@@ -37,6 +37,7 @@ public sealed class ProjectDetectionService
         await ScanDirectoryAsync(rootPath, depth: 0, exclusionRules, projects, rawSolutions, cancellationToken).ConfigureAwait(false);
 
         var solutions = ResolveSolutions(rawSolutions, projects);
+        ResolveProjectReferences(projects);
 
         if (projects.Count == 0)
         {
@@ -84,6 +85,36 @@ public sealed class ProjectDetectionService
         foreach (var subdirectory in children.Where(c => c.IsDirectory))
         {
             await ScanDirectoryAsync(subdirectory.FullPath, depth + 1, exclusionRules, projects, rawSolutions, cancellationToken).ConfigureAwait(false);
+        }
+    }
+
+    /// <summary>Links each project's raw <see cref="ProjectInfo.ProjectReferenceFilePaths"/>
+    /// to the <see cref="ProjectInfo.Id"/> of matching projects already in the scanned graph.
+    /// References to projects outside the scanned depth or excluded directories are silently
+    /// skipped — the project still builds, MSBuild resolves those dependencies itself.</summary>
+    private static void ResolveProjectReferences(List<ProjectInfo> projects)
+    {
+        var byFilePath = new Dictionary<string, int>(PathComparer.Comparer);
+        for (var i = 0; i < projects.Count; i++)
+        {
+            if (projects[i].ProjectFile is { } file)
+                byFilePath[Path.GetFullPath(file)] = i;
+        }
+
+        for (var i = 0; i < projects.Count; i++)
+        {
+            var project = projects[i];
+            if (project.ProjectReferenceFilePaths.Count == 0) continue;
+
+            var resolvedIds = new List<string>();
+            foreach (var refPath in project.ProjectReferenceFilePaths)
+            {
+                if (byFilePath.TryGetValue(refPath, out var depIndex))
+                    resolvedIds.Add(projects[depIndex].Id);
+            }
+
+            if (resolvedIds.Count > 0)
+                projects[i] = project with { DependencyProjectIds = resolvedIds };
         }
     }
 

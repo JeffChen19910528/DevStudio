@@ -80,6 +80,13 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private DevStudio.Core.Workspace.BuildConfiguration _selectedBuildConfiguration = DevStudio.Core.Workspace.BuildConfiguration.Debug;
 
+    /// <summary>Independently-selectable configuration for dependency projects, so a user
+    /// can build dependencies as Release while keeping the main project on Debug (or vice
+    /// versa) — a common pattern when the main project is a legacy web app that does not
+    /// need its own compile step but its class-library dependencies must ship optimised.</summary>
+    [ObservableProperty]
+    private DevStudio.Core.Workspace.BuildConfiguration _selectedDependencyBuildConfiguration = DevStudio.Core.Workspace.BuildConfiguration.Release;
+
     [ObservableProperty]
     private bool _isBuildRunning;
 
@@ -731,7 +738,6 @@ public partial class MainWindowViewModel : ObservableObject
         }
 
         Problems.ReplaceBuildDiagnostics(Array.Empty<Diagnostic>());
-        Output.Log("Build", $"Starting {operation}: {target.Name} ({SelectedBuildConfiguration.Name})");
         IsBuildRunning = true;
         LastBuildStatus = BuildStatus.Running;
 
@@ -741,6 +747,27 @@ public partial class MainWindowViewModel : ObservableObject
 
         try
         {
+            // For project targets, build each <ProjectReference> dependency first in
+            // topological order so callers never need to manually copy output DLLs.
+            if (target.Kind == BuildTargetKind.Project)
+            {
+                var dependencies = GetOrderedDependencies(target);
+                foreach (var dep in dependencies)
+                {
+                    Output.Log("Build", $"Building dependency: {dep.Name} ({SelectedDependencyBuildConfiguration.Name})");
+                    var depResult = await _buildService.ExecuteAsync(dep, SelectedDependencyBuildConfiguration, operation, sink).ConfigureAwait(true);
+                    if (depResult.Status is BuildStatus.Failed or BuildStatus.Unavailable or BuildStatus.Cancelled or BuildStatus.TimedOut)
+                    {
+                        LastBuildResult = depResult;
+                        LastBuildStatus = depResult.Status;
+                        Problems.ReplaceBuildDiagnostics(depResult.Diagnostics);
+                        Output.Log("Build", $"Dependency '{dep.Name}' failed — stopping build.", OutputEntrySeverity.Error);
+                        return;
+                    }
+                }
+            }
+
+            Output.Log("Build", $"Starting {operation}: {target.Name} ({SelectedBuildConfiguration.Name})");
             var result = await _buildService.ExecuteAsync(target, SelectedBuildConfiguration, operation, sink).ConfigureAwait(true);
             LastBuildResult = result;
             LastBuildStatus = result.Status;
@@ -756,6 +783,38 @@ public partial class MainWindowViewModel : ObservableObject
         {
             IsBuildRunning = false;
         }
+    }
+
+    /// <summary>Returns the dependency projects for <paramref name="target"/> in topological
+    /// build order (deepest dependencies first) by walking <see
+    /// cref="ProjectInfo.DependencyProjectIds"/> recursively. Only includes projects that are
+    /// present in the detected graph and have a known build adapter; references outside the
+    /// scanned workspace are silently skipped — MSBuild will resolve them itself when the
+    /// main project's build runs.</summary>
+    private IReadOnlyList<BuildTarget> GetOrderedDependencies(BuildTarget target)
+    {
+        var project = _projectLookup.FindProject(target.WorkingDirectory);
+        if (project is null || project.DependencyProjectIds.Count == 0)
+            return Array.Empty<BuildTarget>();
+
+        var byId = _projectLookup.ProjectsByRootPath.Values.ToDictionary(p => p.Id);
+        var ordered = new List<ProjectInfo>();
+        var visited = new HashSet<string>();
+
+        void Visit(string id)
+        {
+            if (!visited.Add(id)) return;
+            if (!byId.TryGetValue(id, out var dep)) return;
+            foreach (var childId in dep.DependencyProjectIds) Visit(childId);
+            ordered.Add(dep);
+        }
+
+        foreach (var depId in project.DependencyProjectIds) Visit(depId);
+
+        return ordered
+            .Where(p => p.ProjectFile is not null && _buildService.HasAdapterFor(p.ProjectType))
+            .Select(p => new BuildTarget(BuildTargetKind.Project, p.Name, p.ProjectFile!, p.RootPath, p.ProjectType))
+            .ToList();
     }
 
     private static string DescribeBuildResult(BuildResult result) => result.Status switch
@@ -1308,6 +1367,18 @@ public partial class MainWindowViewModel : ObservableObject
         }
 
         ActiveProjectId = result.State.ActiveProjectId;
+
+        if (result.State.BuildConfigurationName is { } buildConfig)
+        {
+            var match = AvailableBuildConfigurations.FirstOrDefault(c => c.Name == buildConfig);
+            if (match is not null) SelectedBuildConfiguration = match;
+        }
+
+        if (result.State.DependencyBuildConfigurationName is { } depConfig)
+        {
+            var match = AvailableBuildConfigurations.FirstOrDefault(c => c.Name == depConfig);
+            if (match is not null) SelectedDependencyBuildConfiguration = match;
+        }
     }
 
     public async Task SaveWorkspaceStateAsync()
@@ -1319,7 +1390,9 @@ public partial class MainWindowViewModel : ObservableObject
             rootPath,
             Documents.Where(d => d.FilePath is not null).Select(d => d.FilePath!).ToList(),
             ActiveDocument?.FilePath,
-            ActiveProjectId);
+            ActiveProjectId,
+            BuildConfigurationName: SelectedBuildConfiguration.Name,
+            DependencyBuildConfigurationName: SelectedDependencyBuildConfiguration.Name);
 
         await _workspaceStateStore.SaveAsync(rootPath, state).ConfigureAwait(true);
     }

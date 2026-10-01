@@ -38,7 +38,19 @@ public sealed record ProjectInfo(
     /// Defaults to false so every detector predating this field compiles unchanged and
     /// correctly reports "not a test project" by omission — conservative by design: when the
     /// evidence is inconclusive, this stays false rather than guessing.</summary>
-    bool IsTestProject = false)
+    bool IsTestProject = false,
+    /// <summary>Absolute paths read from <c>&lt;ProjectReference Include="..."/&gt;</c>
+    /// elements in the project file during detection. Not yet resolved to other
+    /// <see cref="ProjectInfo"/> objects — <see cref="ProjectDetectionService"/> does
+    /// that cross-referencing once the full tree walk is done, populating
+    /// <see cref="DependencyProjectIds"/>. Empty for non-.NET projects.</summary>
+    IReadOnlyList<string> ProjectReferenceFilePaths = null!,
+    /// <summary>IDs of projects that this project directly depends on, resolved from
+    /// <see cref="ProjectReferenceFilePaths"/> by <see cref="ProjectDetectionService"/>
+    /// after detection. Used by the build system to build dependencies first.</summary>
+    IReadOnlyList<string> DependencyProjectIds = null!)
 {
     public IReadOnlyList<ProjectInfo> ChildProjects { get; init; } = ChildProjects ?? Array.Empty<ProjectInfo>();
+    public IReadOnlyList<string> ProjectReferenceFilePaths { get; init; } = ProjectReferenceFilePaths ?? Array.Empty<string>();
+    public IReadOnlyList<string> DependencyProjectIds { get; init; } = DependencyProjectIds ?? Array.Empty<string>();
 }

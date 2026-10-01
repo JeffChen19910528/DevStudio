@@ -230,6 +230,12 @@
   <data name="Toolbar.Build" xml:space="preserve">
     <value>Build</value>
   </data>
+  <data name="Toolbar.DepsConfig.Label" xml:space="preserve">
+    <value>Deps:</value>
+  </data>
+  <data name="Toolbar.DepsConfig.Tooltip" xml:space="preserve">
+    <value>Build configuration used for dependency projects</value>
+  </data>
   <data name="Toolbar.Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>

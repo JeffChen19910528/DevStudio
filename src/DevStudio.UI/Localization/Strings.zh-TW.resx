@@ -230,6 +230,12 @@
   <data name="Toolbar.Build" xml:space="preserve">
     <value>建置</value>
   </data>
+  <data name="Toolbar.DepsConfig.Label" xml:space="preserve">
+    <value>相依性:</value>
+  </data>
+  <data name="Toolbar.DepsConfig.Tooltip" xml:space="preserve">
+    <value>相依性專案使用的建置組態</value>
+  </data>
   <data name="Toolbar.Cancel" xml:space="preserve">
     <value>取消</value>
   </data>

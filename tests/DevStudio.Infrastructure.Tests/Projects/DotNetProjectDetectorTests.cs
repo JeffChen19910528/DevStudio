@@ -153,4 +153,36 @@ public class DotNetProjectDetectorTests
 
         Assert.False(result!.Project!.IsTestProject);
     }
+
+    [Fact]
+    public async Task Project_references_are_read_as_absolute_paths()
+    {
+        using var temp = new TempDirectory();
+        temp.WriteFile("App.csproj", """
+            <Project Sdk="Microsoft.NET.Sdk">
+              <ItemGroup>
+                <ProjectReference Include="..\Business\Business.csproj" />
+                <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+              </ItemGroup>
+            </Project>
+            """);
+
+        var result = await new DotNetProjectDetector().DetectAsync(temp.Path, new[] { "App.csproj" });
+
+        Assert.Equal(2, result!.Project!.ProjectReferenceFilePaths.Count);
+        Assert.All(result.Project.ProjectReferenceFilePaths, p => Assert.True(Path.IsPathRooted(p)));
+        Assert.Contains(result.Project.ProjectReferenceFilePaths, p => p.EndsWith($"{Path.DirectorySeparatorChar}Business.csproj", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(result.Project.ProjectReferenceFilePaths, p => p.EndsWith($"{Path.DirectorySeparatorChar}DataAccess.csproj", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public async Task A_project_with_no_project_references_has_an_empty_list()
+    {
+        using var temp = new TempDirectory();
+        temp.WriteFile("App.csproj", "<Project Sdk=\"Microsoft.NET.Sdk\" />");
+
+        var result = await new DotNetProjectDetector().DetectAsync(temp.Path, new[] { "App.csproj" });
+
+        Assert.Empty(result!.Project!.ProjectReferenceFilePaths);
+    }
 }
