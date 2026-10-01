@@ -76,6 +76,198 @@ This produces:
 Copy the executable for your platform anywhere you like and run it directly — no installation
 step, no terminal required after that.
 
+## User Interface
+
+### Layout overview
+
+The window is divided into four main areas:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Menu bar                                               │
+├─────────────────────────────────────────────────────────┤
+│  Toolbar row 1 — file / build / run controls            │
+│  Toolbar row 2 — debug / language / test controls       │
+├──────────────┬──────────────────────────┬───────────────┤
+│              │                          │               │
+│   Explorer   │        Editor            │  Properties   │
+│  (file tree) │      (tabbed files)      │   (project    │
+│              │                          │    details)   │
+├──────────────┴──────────────────────────┴───────────────┤
+│  Bottom panel (tabbed)                                  │
+│  Problems · Output · Terminal · Toolchains · Call Stack │
+│  Threads · Locals · Breakpoints · Completion · Hover   │
+│  Test Explorer · Source Control · Extensions · Packages │
+├─────────────────────────────────────────────────────────┤
+│  Status bar                                             │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Toolbar
+
+**Row 1 — file, build, and run:**
+
+| Control | Description |
+|---|---|
+| Open Folder | Open a workspace folder |
+| Save | Save the active file |
+| Terminal | Open a new integrated terminal tab |
+| Build | Build the selected project/solution |
+| Cancel | Cancel a running build |
+| Build config dropdown | Choose Debug or Release for the build target |
+| Deps config dropdown | Choose Debug or Release for dependency projects |
+| Run config dropdown | Choose which project/target to run |
+| Run | Build (if needed) and launch the selected target |
+| Stop | Stop the running process |
+| Restart | Stop then immediately relaunch the process |
+
+**Row 2 — debug and language:**
+
+| Control | Description |
+|---|---|
+| Start Debugging | Launch the selected target under the debugger |
+| Continue | Resume execution from a breakpoint |
+| Pause | Pause a running debug session |
+| Step Over | Execute the current line and stop at the next |
+| Step Into | Step into a called method |
+| Step Out | Run until the current method returns |
+| Stop Debugging | Terminate the debug session |
+| Completion | Request code completions at the cursor (C# files) |
+| Hover | Show type/documentation for the symbol at the cursor |
+| Go To Definition | Jump to the definition of the symbol at the cursor |
+| Restart LSP | Restart the Roslyn language server |
+
+### Panels
+
+**Left — Explorer:** Shows the folder tree for the open workspace. Double-click a file to open it in the editor. Right-click a project node for context actions (e.g. **Set as Startup Project**).
+
+**Centre — Editor:** A tabbed code editor. Modified files show a `*` indicator next to their name. The find/replace bar (Edit → Find) appears above the editor when active and supports case-sensitive search and Replace All.
+
+When a file is modified on disk by an external tool while it is open, a yellow banner appears offering to reload it from disk.
+
+**Right — Properties:** Shows metadata for the item selected in the Explorer: project type, file path, detection confidence, whether it is executable, and which capabilities are available (Build, Run, Debug, etc.) based on your installed toolchains.
+
+**Bottom panel tabs:**
+
+| Tab | Description |
+|---|---|
+| Problems | Errors and warnings from the last build or language server. Click any entry to jump to its source line. |
+| Output | Live stdout/stderr from build and run operations. |
+| Terminal | Integrated shell sessions. Use New / Restart / Close to manage tabs. Type commands in the input box at the bottom of each tab. |
+| Toolchains | Lists every detected toolchain (SDK, compiler, Git, Docker, etc.) with its version and path. Also shows installed Visual Studio instances. Use Refresh to re-scan. |
+| Call Stack | Active stack frames during a debug session. Click a frame to navigate to that source location. |
+| Threads | List of threads in the debugged process. |
+| Locals | Variables in scope at the current breakpoint, grouped by scope. |
+| Breakpoints | All breakpoints currently set, with file, line, and enabled status. |
+| Completion | Results from the last Completion request. Double-click an item to insert it. |
+| Hover | Documentation or type information from the last Hover request. |
+| Test Explorer | Discover and run .NET tests. Use Refresh Tests, Run All, Run Selected, or Stop. Double-click a result to navigate to the test. |
+| Source Control | Full Git UI: view staged/unstaged changes and diffs, stage/unstage/discard, commit, manage branches, and browse history. |
+| Extensions | Lists discovered extensions. Select one to see details, validation errors, and its contributed commands. Use Enable/Disable to toggle, and Invoke to run a contributed command manually. |
+| Package Manager | Manage dependencies per-project. Select a project and its package manager, then use the Installed / Browse / Updates / Dependencies tabs. |
+
+**Status bar:** Displays workspace name, active filename, project context, cursor line/column, file encoding, line-ending style, modified flag, last build status, run status, and language-server state.
+
+---
+
+### Menus
+
+#### File
+
+| Item | Action |
+|---|---|
+| New File | Create a new untitled file |
+| Open File | Open a single file in the editor |
+| Open Folder | Open a folder as the active workspace |
+| Recent Workspaces | Submenu of recently opened folders |
+| Reopen Last Workspace on Startup | Toggle: automatically restore the last workspace on next launch |
+| Save | Save the active file (Ctrl+S) |
+| Save As | Save the active file to a new path |
+| Close | Close the active editor tab |
+| Exit | Quit DevStudio |
+
+#### Edit
+
+| Item | Action |
+|---|---|
+| Undo | Undo the last edit |
+| Redo | Redo the last undone edit |
+| Cut | Cut the selection |
+| Copy | Copy the selection |
+| Paste | Paste from the clipboard |
+| Find | Open the find/replace bar |
+| Replace | Open the find/replace bar (replace mode) |
+| Go To Line | Jump to a specific line number |
+
+#### View
+
+| Item | Action |
+|---|---|
+| Terminal | Open a new terminal tab (same as the toolbar button) |
+| Toggle Theme | Switch between light and dark themes |
+
+#### Project
+
+| Item | Action |
+|---|---|
+| Trust / Untrust Workspace | Toggle Workspace Trust for the current folder. Trusted workspaces unlock Build, Run, Debug, tests, and mutating Git operations. |
+
+#### Build
+
+| Item | Action |
+|---|---|
+| Build | Build the active workspace |
+| Rebuild | Clean then build |
+| Clean | Delete build outputs |
+| Restore | Restore NuGet packages (`dotnet restore`) |
+| Cancel | Cancel the running build |
+
+#### Run
+
+| Item | Action |
+|---|---|
+| Run | Build (if needed) and launch the selected run target |
+| Run Without Building | Launch the last built output directly |
+| Stop | Stop the running process |
+| Restart | Stop and immediately relaunch |
+
+#### Debug
+
+| Item | Action |
+|---|---|
+| Start Debugging | Launch under the debugger |
+| Continue | Resume from a breakpoint |
+| Pause | Pause execution |
+| Step Over | Step to the next line |
+| Step Into | Step into a method call |
+| Step Out | Run until the current method returns |
+| Stop | Terminate the debug session |
+| Toggle Breakpoint at Line | Add or remove a breakpoint at the cursor line |
+
+#### Language
+
+| Item | Action |
+|---|---|
+| Completion | Request completions at the cursor |
+| Hover | Request hover info at the cursor |
+| Go To Definition | Jump to the symbol's definition |
+| Restart Language Server | Restart the Roslyn language server |
+
+#### Tools
+
+| Item | Action |
+|---|---|
+| Refresh Toolchains | Re-scan for installed SDKs, compilers, and tools |
+| Settings | Open the Settings window (theme, language, startup behaviour) |
+
+#### Extensions
+
+| Item | Action |
+|---|---|
+| Refresh | Rescan the extensions folder for new or changed extensions |
+
+---
+
 ## Using DevStudio
 
 1. **Open a workspace** — File → Open Folder, and pick a folder containing a .NET project or
